@@ -22,57 +22,39 @@ h1 {
 }
 
 p {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 1.05rem;
+    line-height: 1.7;
 }
 
-/* Floating hearts */
-.heart {
-    position: fixed;
-    bottom: -20px;
-    font-size: 20px;
-    animation: float 6s linear infinite;
-    opacity: 0.7;
-}
-@keyframes float {
-    from { transform: translateY(0); opacity: 0.8; }
-    to { transform: translateY(-100vh); opacity: 0; }
-}
-
-/* Card */
 .card-box {
     background: rgba(255,255,255,0.18);
     border-radius: 25px;
     padding: 25px;
-    margin: 40px auto;
-    max-width: 340px;
+    margin: 35px auto;
+    max-width: 360px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+button {
+    background: #fff;
+    color: #ff4d6d;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 25px;
+    margin: 10px;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .hidden { display: none; }
 
-.valentine-question {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 18px;
+/* Fade-in */
+.fade-in {
+    animation: fadeIn 1.6s ease forwards;
 }
-
-.answer-btn {
-    background: #fff;
-    color: #ff4d6d;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 25px;
-    margin: 10px;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-/* 🚫 NO BUTTON NEVER MOVES */
-#noBtn {
-    position: static !important;
-    transform: none !important;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Ring */
@@ -100,14 +82,41 @@ p {
     }
 }
 
-footer {
-    margin-top: 45px;
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatHeart 6s linear infinite;
+    opacity: 0.8;
+}
+@keyframes floatHeart {
+    from { transform: translateY(0); opacity: 0.9; }
+    to { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* Savage text */
+.savage {
+    margin-top: 10px;
     font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.thank-you {
+    margin-top: 20px;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+footer {
+    margin-top: 40px;
+    font-size: 0.95rem;
+    opacity: 0.95;
 }
 </style>
 </head>
 
-<body onclick="enableSound()">
+<body>
 
 <h1>Hey You ❤️</h1>
 
@@ -116,120 +125,111 @@ I made this little page for you,<br>
 because some feelings deserve more than just words 💕
 </p>
 
-<div class="card-box" onclick="openCard()">
-    <div id="closedCard">
-        💌 Tap to open this 💌
-        <p style="font-size:0.9rem;">(trust me)</p>
-    </div>
+<!-- PROPOSAL -->
+<div class="card-box" id="proposalCard">
+    <p style="font-size:1.4rem; font-weight:600;">
+        Will you be my Valentine? ❤️
+    </p>
 
-    <div id="openCard" class="hidden">
-        <div class="valentine-question">
-            Will you be my Valentine? ❤️
-        </div>
+    <button onclick="openConfession()">Yes 💖</button>
+    <button id="noBtn" onclick="handleNo()">No 🙃</button>
 
-        <button class="answer-btn" onclick="sayYes(event)">Yes 💖</button>
-        <button class="answer-btn" id="noBtn" onclick="handleNo()">No 🙃</button>
-    </div>
+    <div id="savageText" class="savage"></div>
 </div>
 
-<p style="font-size:0.9rem;">(tap anywhere to enable music 🎶)</p>
+<!-- CONFESSION -->
+<div class="card-box hidden" id="confessionCard">
 
-<audio id="bgMusic" autoplay loop muted>
-    <source src="https://raw.githubusercontent.com/ank0809/Rose-day/e8b44a007b0661bc1c584f677fe703e3a44e7676/tum-se-hi-from-jab-we-met_8h436GOY.mp3" type="audio/mpeg">
-</audio>
+    <div class="ring">💍</div>
+
+    <p>
+    We met accidentally…<br>
+    aur phir bas baatein shuru ho gayi 😊<br>
+    bina kisi plan ke,<br>
+    bina kisi expectation ke.
+    </p>
+
+    <p>
+    Waqt dheere-dheere guzarta gaya,<br>
+    main tumhe jaanne laga…<br>
+    aur honestly,<br>
+    mujhe pata hi nahi chala<br>
+    kab tum meri aadat ban gaye 💫
+    </p>
+
+    <p>
+    Sach bataun to,<br>
+    main ladkiyon se thoda door hi bhaagta tha—<br>
+    darr ki wajah se,<br>
+    confusion ki wajah se 🙃
+    </p>
+
+    <p>
+    Par tumse milne ke baad laga,<br>
+    ki shayad sab log same nahi hote ❤️
+    </p>
+
+    <p>
+    Tum is generation se thodi alag ho,<br>
+    bilkul meri soch jaise ✨<br>
+    tumhara behaviour,<br>
+    tumhari thinking,<br>
+    aur tumhari simplicity—<br>
+    sab kuch aisa hai<br>
+    jaise main hamesha imagine karta tha… 🫶
+    </p>
+
+    <p style="font-weight:600;">
+    Accidently mile hum,<br>
+    par lagta hai destiny ne<br>
+    mujhe jaan-boojh kar<br>
+    tumse milwaya tha 😌❤️
+    </p>
+
+    <div class="thank-you">
+        🐻 Thank you for saying YES 🫶<br>
+        Ab mera dil officially<br>
+        tumhari zimmedari hai 💖😄
+    </div>
+</div>
 
 <footer>
 Always yours,<br>
 <b>Your Farzi Engineer 😌</b>
 </footer>
 
-<!-- Floating hearts -->
 <script>
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💗";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 7000);
-}
-setInterval(createHeart, 450);
-</script>
+let noCount = 0;
 
-<script>
-let soundEnabled = false;
-let noClickCount = 0;
-
-/* 😈 SAVAGE NO BUTTON TEXTS */
-const noButtonTexts = [
-    "No 🙃",
-    "Seriously? NO? 😒",
-    "Itna attitude kis baat ka 😏",
-    "Dil ka murder kar rahi ho 💔",
-    "Tumhe pachtaawa hoga 😌",
-    "Last chance de raha hoon 😤",
-    "Universe bhi facepalm 🤦‍♂️",
-    "Bas bas… YES hi likh deta hoon ❤️"
+const savageLines = [
+    "Soch lo… main fir se poochne wala hoon 😌",
+    "Itna bhi bhaav mat khao 🙃",
+    "Dil already tumhare naam hai waise 😏",
+    "Acha, ek baar aur NO bol ke dekho 👀",
+    "Itna attitude healthy nahi hota 😄",
+    "Tum YES bolne ke bohot kareeb ho 😌",
+    "Bas ek click aur… phir drama khatam 💖"
 ];
 
-function enableSound() {
-    if (!soundEnabled) {
-        const music = document.getElementById("bgMusic");
-        music.muted = false;
-        music.play();
-        soundEnabled = true;
-    }
-}
-
-function openCard() {
-    document.getElementById("closedCard").classList.add("hidden");
-    document.getElementById("openCard").classList.remove("hidden");
-}
-
-/* NO button text changes on every click */
 function handleNo() {
+    const text = document.getElementById("savageText");
     const btn = document.getElementById("noBtn");
-    noClickCount++;
 
-    if (noClickCount < noButtonTexts.length) {
-        btn.innerText = noButtonTexts[noClickCount];
+    if (noCount < 7) {
+        text.innerText = savageLines[noCount];
+        noCount++;
     } else {
         btn.innerText = "Yes 💖";
-        btn.style.background = "#ff4d6d";
-        btn.style.color = "#fff";
-        btn.onclick = sayYes;
+        btn.onclick = openConfession;
+        text.innerText = "Ab option bhi samajh gaya 😏❤️";
     }
 }
 
-/* YES */
-function sayYes(e) {
-    if (e) e.stopPropagation();
-
-    const card = document.querySelector(".card-box");
-    card.innerHTML = `
-        <div class="ring">💍</div>
-
-        <p>
-        Accidentally mile apn…<br>
-        aur pata bhi nahi chala kab tum<br>
-        <b>itne khaas ho gaye</b> mere liye ❤️
-        </p>
-
-        <p>
-        Log kehte hain accidently kuch nahi hota,<br>
-        sab destiny ka plan hota hai ✨
-        </p>
-
-        <p>
-        Tumhara behaviour,<br>
-        tumhari care,<br>
-        aur tumhari simplicity<br>
-        mujhe har roz tumhari taraf kheench leti hai 💕
-        </p>
-
-        <p><b>Isiliye YES bolna obvious tha 😌</b></p>
-    `;
+function openConfession() {
+    document.getElementById("proposalCard").classList.add("hidden");
+    const confession = document.getElementById("confessionCard");
+    confession.classList.remove("hidden");
+    confession.classList.add("fade-in");
     launchConfetti();
 }
 
@@ -245,6 +245,18 @@ function launchConfetti() {
         setTimeout(() => conf.remove(), 3000);
     }
 }
+
+/* Floating hearts */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+}
+setInterval(createHeart, 450);
 </script>
 
 </body>
