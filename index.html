@@ -83,6 +83,22 @@ button {
     100% { transform: scale(1); opacity: 1; }
 }
 
+/* ✨ Soft Glow */
+.glow {
+    animation: softGlow 2.5s ease-in-out infinite alternate;
+    color: #fff;
+}
+@keyframes softGlow {
+    from {
+        text-shadow: 0 0 6px rgba(255,255,255,0.4),
+                     0 0 12px rgba(255,182,193,0.4);
+    }
+    to {
+        text-shadow: 0 0 12px rgba(255,255,255,0.9),
+                     0 0 24px rgba(255,105,180,0.9);
+    }
+}
+
 footer {
     margin-top: 40px;
     font-size: 0.95rem;
@@ -138,6 +154,20 @@ footer {
     tumse milwaya tha 😌❤️
     </p>
 
+    <!-- ❤️ Added lines -->
+    <p>
+    From knowing your name,<br>
+    to knowing everything about you… 🌙
+    </p>
+
+    <p>
+    It has been the most beautiful journey of my life ✨
+    </p>
+
+    <p class="glow" style="font-weight:600; font-size:1.1rem;">
+    Hey… please stay with me forever 💞
+    </p>
+
     <h3>Thank you for choosing me 🐻💖</h3>
 </div>
 
@@ -152,7 +182,6 @@ footer {
 </audio>
 
 <script>
-/* Enable sound on tap */
 let soundEnabled = false;
 function enableSound() {
     if (!soundEnabled) {
@@ -163,7 +192,7 @@ function enableSound() {
     }
 }
 
-/* UPDATED NO button lines (as requested) */
+/* NO button logic */
 let noCount = 0;
 const savageLines = [
     "Dil dukha diya 😭",
@@ -177,9 +206,8 @@ const savageLines = [
 
 function handleNo() {
     const btn = document.getElementById("noBtn");
-    if (noCount < 7) {
-        btn.innerText = savageLines[noCount];
-        noCount++;
+    if (noCount < savageLines.length) {
+        btn.innerText = savageLines[noCount++];
     } else {
         btn.innerText = "Yes 💖";
         btn.onclick = openConfession;
@@ -194,7 +222,7 @@ function openConfession() {
     startConfetti();
 }
 
-/* First page floating hearts */
+/* Floating hearts */
 const firstPageHearts = ["💞","💓"];
 setInterval(() => {
     const e = document.createElement("div");
