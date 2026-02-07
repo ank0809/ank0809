@@ -1,22 +1,34 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Just For You ❤️</title>
+<title>For You ❤️</title>
 
 <style>
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    background: linear-gradient(135deg, #ff6a88, #ff99ac);
     color: #fff;
     text-align: center;
+    padding: 20px;
     overflow-x: hidden;
 }
 
-h1 { margin-top: 25px; }
+h1 {
+    font-size: 2.3rem;
+    margin-top: 20px;
+}
 
+.intro {
+    font-size: 1.05rem;
+    opacity: 0.95;
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+/* Card */
 .card {
     background: rgba(255,255,255,0.18);
     border-radius: 25px;
@@ -39,10 +51,10 @@ button {
 
 .hidden { display: none; }
 
+/* Fade in */
 .fade-in {
-    animation: fade 1.8s ease;
+    animation: fade 1.6s ease;
 }
-
 @keyframes fade {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -54,11 +66,10 @@ button {
     bottom: -10px;
     font-size: 20px;
     animation: float 6s linear infinite;
+    opacity: 0.8;
 }
-
 @keyframes float {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-100vh); opacity: 0; }
+    to { transform: translateY(-100vh); opacity: 0; }
 }
 
 /* Ring */
@@ -66,29 +77,39 @@ button {
     font-size: 4rem;
     animation: pop 1s ease forwards;
 }
-
 @keyframes pop {
     0% { transform: scale(0); opacity: 0; }
     70% { transform: scale(1.2); }
     100% { transform: scale(1); opacity: 1; }
 }
+
+footer {
+    margin-top: 40px;
+    font-size: 0.95rem;
+    opacity: 0.95;
+}
 </style>
 </head>
 
-<body>
+<body onclick="enableSound()">
 
 <h1>Hey You ❤️</h1>
 
+<div class="intro">
+    I made this little page for you 💕<br>
+    kyunki kuch feelings<br>
+    sirf messages mein fit nahi hoti…
+</div>
+
 <!-- Proposal Card -->
 <div class="card" id="proposalCard">
-    <h2>Will you be my Valentine? 💕</h2>
-    <button onclick="openConfession()">Yes 💖</button>
+    <h2>Will you be my Valentine? 💖</h2>
+    <button onclick="openConfession()">Yes 💕</button>
     <button id="noBtn" onclick="handleNo()">No 🙃</button>
 </div>
 
-<!-- Confession Card -->
+<!-- Confession -->
 <div class="card hidden fade-in" id="confessionCard">
-
     <div class="ring">💍</div>
 
     <p>
@@ -99,23 +120,21 @@ button {
 
     <p>
     Waqt guzarta gaya,<br>
-    main tumhe jaanne laga…<br>
-    aur pata hi nahi chala<br>
+    aur mujhe pata hi nahi chala<br>
     kab tum meri aadat ban gaye 💫
     </p>
 
     <p>
     Sach bataun to,<br>
     main ladkiyon se thoda door bhaagta tha 🙃<br>
-    par tumse milne ke baad laga,<br>
-    shayad sab log same nahi hote ❤️
+    par tumse milne ke baad laga<br>
+    sab log same nahi hote ❤️
     </p>
 
     <p>
-    Tum is generation se thodi alag ho ✨<br>
+    Tum bilkul meri soch jaise ho ✨<br>
     tumhara behaviour,<br>
-    tumhari thinking,<br>
-    tumhari simplicity —<br>
+    tumhari simplicity,<br>
     sab kuch bilkul mere type ka 🫶
     </p>
 
@@ -129,12 +148,27 @@ button {
     <h3>Thank you for choosing me 🐻💖</h3>
 </div>
 
+<footer>
+    Always yours,<br>
+    <b>Your Farzi Engineer 😌</b>
+</footer>
+
 <!-- 🎵 Background Song -->
-<audio id="bgSong" loop>
-    <source src="https://raw.githubusercontent.com/ank0809/Valentine/main/rhnuma_raone_srk.mp3" type="audio/mpeg">
+<audio id="bgSong" loop muted>
+    <source src="https://raw.githubusercontent.com/ank0809/Rose-day/e8b44a007b0661bc1c584f677fe703e3a44e7676/tum-se-hi-from-jab-we-met_8h436GOY.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+let soundEnabled = false;
+function enableSound() {
+    if (!soundEnabled) {
+        const song = document.getElementById("bgSong");
+        song.muted = false;
+        song.play();
+        soundEnabled = true;
+    }
+}
+
 /* NO button logic */
 let noCount = 0;
 const savageLines = [
@@ -149,7 +183,6 @@ const savageLines = [
 
 function handleNo() {
     const btn = document.getElementById("noBtn");
-
     if (noCount < 7) {
         btn.innerText = savageLines[noCount];
         noCount++;
@@ -163,13 +196,8 @@ function handleNo() {
 function openConfession() {
     document.getElementById("proposalCard").classList.add("hidden");
     document.getElementById("confessionCard").classList.remove("hidden");
-
-    // play song
-    const song = document.getElementById("bgSong");
-    song.play();
-
-    startConfetti();
     startHearts();
+    startConfetti();
 }
 
 /* Confetti */
