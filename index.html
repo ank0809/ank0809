@@ -47,6 +47,7 @@ p {
     margin: 40px auto;
     max-width: 340px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    cursor: pointer;
 }
 
 .hidden { display: none; }
@@ -66,7 +67,7 @@ p {
     margin: 8px;
     font-size: 1rem;
     cursor: pointer;
-    position: relative;
+    transition: 0.3s;
 }
 
 /* Ring animation */
@@ -158,6 +159,18 @@ setInterval(createHeart, 450);
 
 <script>
 let soundEnabled = false;
+let noClickCount = 0;
+
+const funnyNoLines = [
+    "Arre soch le yaar 😏",
+    "Itni jaldi NO? Dil toot raha hai 💔",
+    "Tum aise zulm na karo 😭",
+    "No button bhi thak gaya bhaagte bhaagte 🏃",
+    "Dil: try again 💖",
+    "Itna bhaav bhi theek nahi 😌",
+    "Universe facepalm 🤦‍♂️",
+    "Bas bas… ab drama band 😎"
+];
 
 function enableSound() {
     if (!soundEnabled) {
@@ -173,23 +186,64 @@ function openCard() {
     document.getElementById("openCard").classList.remove("hidden");
 }
 
-/* 🏃 No button runs away */
+/* 🏃 NO button runs away */
 function runAway() {
     const btn = document.getElementById("noBtn");
+    const response = document.getElementById("response");
+
+    noClickCount++;
+
     const x = Math.random() * 200 - 100;
     const y = Math.random() * 200 - 100;
     btn.style.transform = `translate(${x}px, ${y}px)`;
+
+    response.classList.remove("hidden");
+    response.innerHTML = `<p>${funnyNoLines[Math.min(noClickCount - 1, funnyNoLines.length - 1)]}</p>`;
+
+    if (noClickCount >= 8) {
+        btn.innerHTML = "Yes 💖";
+        btn.style.background = "#ff4d6d";
+        btn.style.color = "#fff";
+        btn.onmouseover = null;
+        btn.onclick = sayYes;
+        response.innerHTML = `<p>Okay okay… ab maan hi jao ❤️</p>`;
+    }
 }
 
-/* 💍 YES = ring + confetti */
+/* 💍 YES = romantic lines */
 function sayYes(e) {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
+
     const response = document.getElementById("response");
     response.classList.remove("hidden");
+
     response.innerHTML = `
         <div class="ring">💍</div>
-        <p>You just made my heart say YES forever 💕</p>
+        <p>
+        Accidentally mile apn…<br>
+        aur pata bhi nahi chala kab tum<br>
+        <b>itne khaas ho gaye</b> mere liye ❤️
+        </p>
+
+        <p>
+        Wo kehte hain na,<br>
+        accidently kuch nahi hota…<br>
+        sab kuch destiny decide karti hai ✨
+        </p>
+
+        <p>
+        Tumhara behaviour,<br>
+        tumhari care,<br>
+        aur tumhari simplicity<br>
+        mujhe har din tumhari taraf kheench leti hai 💕
+        </p>
+
+        <p>
+        Shayad isiliye…<br>
+        <b>YES bolna bhi itna natural laga 😌</b>
+        </p>
     `;
+
     launchConfetti();
 }
 
