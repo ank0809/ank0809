@@ -44,8 +44,14 @@ button {
     margin: 10px;
     font-size: 1rem;
     cursor: pointer;
+    transition: 0.3s;
 }
 
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Hidden class */
 .hidden { display: none; }
 
 /* Fade */
@@ -112,12 +118,48 @@ button {
     max-width: 330px;
     box-shadow: 0 15px 30px rgba(0,0,0,0.4);
     animation: pop 0.8s ease;
+    position: relative;
+    overflow: hidden; /* for floating hearts */
 }
 
 .close {
     font-size: 1.2rem;
     cursor: pointer;
     float: right;
+}
+
+/* Popup fade-in/fade-out */
+.popup.fade-in {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.popup.fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Floating hearts inside popup */
+.popup .heart {
+    position: absolute;
+    font-size: 20px;
+    color: #ff6aa1;
+    animation: floatHeart 4s linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes floatHeart {
+    0% { transform: translateY(0) scale(1); opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-120px) scale(1.2); opacity: 0; }
 }
 
 footer {
@@ -148,22 +190,24 @@ footer {
 <div class="card hidden fade-in" id="confessionCard">
     <div class="ring">💍</div>
 
-    <p>We met accidentally…<br>aur phir baatein start ho gayi 😊</p>
+    <p>We met accidentally…<br>aur phir bas baatein start ho gayi 😊<br>bina plan ke, bina expectation ke.</p>
 
-    <p>Waqt guzarta gaya,<br>aur tum meri aadat ban gaye 💫</p>
+    <p>Waqt guzarta gaya,<br>aur mujhe pata hi nahi chala<br>kab tum meri aadat ban gaye 💫</p>
 
-    <p>Accidently mile hum,<br>par destiny ne milwaya tha 😌❤️</p>
+    <p>Tum bilkul meri soch jaise ho ✨<br>tumhara behaviour,<br>tumhari simplicity —<br>sab kuch bilkul mere type ka 🫶</p>
+
+    <p>Accidently mile hum,<br>par lagta hai destiny ne<br>mujhe jaan-boojh kar<br>tumse milwaya tha 😌❤️</p>
 
     <!-- 💌 Popup Button -->
-    <button onclick="openPopup()">Ek last baat… 💌</button>
+    <button onclick="openPopup2()">Ek last baat… 💌</button>
 
     <h3>Thank you for choosing me 🐻💖</h3>
 </div>
 
-<!-- 💖 POPUP -->
-<div class="popup hidden" id="lovePopup">
+<!-- 💌 SECOND POPUP -->
+<div class="popup hidden" id="lovePopup2" onclick="closePopupOutside(event)">
     <div class="popup-card">
-        <div class="close" onclick="closePopup()">❌</div>
+        <div class="close" onclick="closePopup2()">❌</div>
 
         <p>
         From knowing your name,<br>
@@ -177,6 +221,13 @@ footer {
         <p class="glow" style="font-weight:600; font-size:1.1rem;">
         Hey… please stay with me forever 💞
         </p>
+
+        <!-- Floating hearts -->
+        <span class="heart" style="left: 10%;">❤️</span>
+        <span class="heart" style="left: 30%; animation-delay: 0.5s;">💖</span>
+        <span class="heart" style="left: 50%; animation-delay: 1s;">💞</span>
+        <span class="heart" style="left: 70%; animation-delay: 1.5s;">❤️</span>
+        <span class="heart" style="left: 90%; animation-delay: 2s;">💗</span>
     </div>
 </div>
 
@@ -215,12 +266,25 @@ function openConfession(){
  confessionCard.classList.remove("hidden");
 }
 
-function openPopup(){
- document.getElementById("lovePopup").classList.remove("hidden");
+// SECOND POPUP FUNCTIONS
+function openPopup2(){
+    const popup = document.getElementById("lovePopup2");
+    popup.classList.remove("hidden", "fade-out");
+    popup.classList.add("fade-in");
 }
 
-function closePopup(){
- document.getElementById("lovePopup").classList.add("hidden");
+function closePopup2(){
+    const popup = document.getElementById("lovePopup2");
+    popup.classList.remove("fade-in");
+    popup.classList.add("fade-out");
+    
+    setTimeout(() => popup.classList.add("hidden"), 500);
+}
+
+function closePopupOutside(e){
+    if(e.target.id === "lovePopup2"){
+        closePopup2();
+    }
 }
 </script>
 
