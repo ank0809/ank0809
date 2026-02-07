@@ -2,112 +2,132 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For Sweetie ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
 
 <style>
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    background: linear-gradient(135deg, #ff6a88, #ff99ac);
     color: #fff;
     text-align: center;
+    padding: 20px;
+    overflow-x: hidden;
 }
 
-/* ---------- Pages ---------- */
-.page {
-    display: none;
-    min-height: 100vh;
-    padding: 30px;
-}
-.page.active {
-    display: block;
+h1 {
+    font-size: 2.3rem;
+    margin-top: 20px;
 }
 
-/* ---------- Buttons ---------- */
-button {
-    padding: 12px 22px;
-    border: none;
+.intro {
+    font-size: 1.05rem;
+    opacity: 0.95;
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+/* Card */
+.card {
+    background: rgba(255,255,255,0.18);
     border-radius: 25px;
+    padding: 25px;
+    margin: 35px auto;
+    max-width: 360px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+button {
+    background: #fff;
+    color: #ff4d6d;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 25px;
+    margin: 10px;
     font-size: 1rem;
     cursor: pointer;
-    margin: 10px;
 }
 
-.yes {
-    background: #ff4d6d;
-    color: #fff;
+.hidden { display: none; }
+
+/* Fade in */
+.fade-in {
+    animation: fade 1.6s ease;
 }
-.no {
-    background: transparent;
-    color: #fff;
-    border: 2px solid #fff;
+@keyframes fade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* ---------- Glow ---------- */
+/* Floating emoji */
+.float {
+    position: fixed;
+    bottom: -10px;
+    font-size: 22px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.9;
+}
+@keyframes floatUp {
+    to { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* Ring */
+.ring {
+    font-size: 4rem;
+    animation: pop 1s ease forwards;
+}
+@keyframes pop {
+    0% { transform: scale(0); opacity: 0; }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* ✨ Soft Glow */
 .glow {
-    animation: softGlow 2s ease-in-out infinite alternate;
+    animation: softGlow 2.5s ease-in-out infinite alternate;
+    color: #fff;
 }
 @keyframes softGlow {
     from {
-        text-shadow: 0 0 5px #fff, 0 0 10px #ffb3c6;
+        text-shadow: 0 0 6px rgba(255,255,255,0.4),
+                     0 0 12px rgba(255,182,193,0.4);
     }
     to {
-        text-shadow: 0 0 12px #fff, 0 0 25px #ff4d6d;
+        text-shadow: 0 0 12px rgba(255,255,255,0.9),
+                     0 0 24px rgba(255,105,180,0.9);
     }
 }
 
-/* ---------- Popup ---------- */
-.popup {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-}
-.popup-content {
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(10px);
-    padding: 25px;
-    border-radius: 20px;
-    width: 85%;
-    max-width: 400px;
-}
-.popup button {
-    background: #ff4d6d;
-    color: #fff;
-}
-
-/* ---------- Typewriter ---------- */
-.typewriter {
-    text-align: center;
-    min-height: 150px;
+footer {
+    margin-top: 40px;
+    font-size: 0.95rem;
+    opacity: 0.95;
 }
 </style>
 </head>
 
-<body>
+<body onclick="enableSound()">
 
-<!-- 🎵 SONG (RESTORED) -->
-<audio autoplay loop>
-    <source src="rhnuma_raone_srk.mp3" type="audio/mpeg">
-</audio>
+<h1>Hey You ❤️</h1>
 
-<!-- ================= PAGE 1 ================= -->
-<div class="page active" id="page1">
-    <h2>Will you be mine forever? ❤️</h2>
-    <p>Ek simple sa sawaal hai…</p>
-
-    <button class="yes" onclick="goToPage2()">YES 💖</button>
-    <button class="no">No 😤 (try again)</button>
+<div class="intro">
+    I made this little page for you 💕<br>
+    kyunki kuch feelings<br>
+    sirf messages mein fit nahi hoti…
 </div>
 
-<!-- ================= PAGE 2 ================= -->
-<div class="page" id="page2">
-    <h2>Confession 💌</h2>
+<!-- Proposal Card -->
+<div class="card" id="proposalCard">
+    <h2>Will you be my Valentine? 💖</h2>
+    <button onclick="openConfession()">Yes 💕</button>
+    <button id="noBtn" onclick="handleNo()">No 🙃</button>
+</div>
 
-    <!-- 🔒 ORIGINAL TEXT (UNCHANGED) -->
+<!-- Confession -->
+<div class="card hidden fade-in" id="confessionCard">
+    <div class="ring">💍</div>
+
     <p>
     We met accidentally…<br>
     aur phir bas baatein start ho gayi 😊<br>
@@ -134,51 +154,108 @@ button {
     tumse milwaya tha 😌❤️
     </p>
 
-    <br>
-    <button onclick="openPopup()">Ek Dil Ki Baat 💕</button>
+    <!-- ❤️ Added lines -->
+    <p>
+    From knowing your name,<br>
+    to knowing everything about you… 🌙
+    </p>
+
+    <p>
+    It has been the most beautiful journey of my life ✨
+    </p>
+
+    <p class="glow" style="font-weight:600; font-size:1.1rem;">
+    Hey… please stay with me forever 💞
+    </p>
+
+    <h3>Thank you for choosing me 🐻💖</h3>
 </div>
 
-<!-- ================= POPUP ================= -->
-<div class="popup" id="popup">
-    <div class="popup-content">
-        <div class="typewriter" id="typeText"></div>
-        <br>
-        <button onclick="closePopup()">Close 💖</button>
-    </div>
-</div>
+<footer>
+    Always yours,<br>
+    <b>Your Farzi Engineer 😌</b>
+</footer>
+
+<!-- 🎵 Background Song -->
+<audio id="bgSong" loop muted>
+    <source src="https://raw.githubusercontent.com/ank0809/Rose-day/e8b44a007b0661bc1c584f677fe703e3a44e7676/tum-se-hi-from-jab-we-met_8h436GOY.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-function goToPage2() {
-    document.getElementById("page1").classList.remove("active");
-    document.getElementById("page2").classList.add("active");
-}
-
-/* ---------- Popup ---------- */
-const popupText = `
-From knowing your name,<br>
-to knowing everything about you… 🌙<br><br>
-It has been the most beautiful journey of my life ✨<br><br>
-<span class="glow">Hey… please stay with me forever 💞</span>
-`;
-
-let index = 0;
-function openPopup() {
-    document.getElementById("popup").style.display = "flex";
-    document.getElementById("typeText").innerHTML = "";
-    index = 0;
-    typeEffect();
-}
-
-function typeEffect() {
-    if (index < popupText.length) {
-        document.getElementById("typeText").innerHTML += popupText.charAt(index);
-        index++;
-        setTimeout(typeEffect, 40);
+let soundEnabled = false;
+function enableSound() {
+    if (!soundEnabled) {
+        const song = document.getElementById("bgSong");
+        song.muted = false;
+        song.play();
+        soundEnabled = true;
     }
 }
 
-function closePopup() {
-    document.getElementById("popup").style.display = "none";
+/* NO button logic */
+let noCount = 0;
+const savageLines = [
+    "Dil dukha diya 😭",
+    "Still no? 🥺",
+    "Thoda pyaar dedo 💖",
+    "Itna bhi kya gussa? 😔",
+    "Ek smile to de do 😊",
+    "Thoda sa YES bol do na 🫣",
+    "Ab bas YES hi bacha 💞"
+];
+
+function handleNo() {
+    const btn = document.getElementById("noBtn");
+    if (noCount < savageLines.length) {
+        btn.innerText = savageLines[noCount++];
+    } else {
+        btn.innerText = "Yes 💖";
+        btn.onclick = openConfession;
+    }
+}
+
+/* YES click */
+function openConfession() {
+    document.getElementById("proposalCard").classList.add("hidden");
+    document.getElementById("confessionCard").classList.remove("hidden");
+    startYesEmojis();
+    startConfetti();
+}
+
+/* Floating hearts */
+const firstPageHearts = ["💞","💓"];
+setInterval(() => {
+    const e = document.createElement("div");
+    e.className = "float";
+    e.innerHTML = firstPageHearts[Math.floor(Math.random()*firstPageHearts.length)];
+    e.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(e);
+    setTimeout(() => e.remove(), 6000);
+}, 700);
+
+/* YES page emojis */
+function startYesEmojis() {
+    const yesEmojis = ["👩‍❤️‍💋‍👨","🫂","🫶","💞","💓","💍"];
+    setInterval(() => {
+        const e = document.createElement("div");
+        e.className = "float";
+        e.innerHTML = yesEmojis[Math.floor(Math.random()*yesEmojis.length)];
+        e.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(e);
+        setTimeout(() => e.remove(), 6000);
+    }, 500);
+}
+
+/* Confetti */
+function startConfetti() {
+    for (let i = 0; i < 30; i++) {
+        const c = document.createElement("div");
+        c.className = "float";
+        c.innerHTML = ["🎉","✨","💖","💍"][Math.floor(Math.random()*4)];
+        c.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 5000);
+    }
 }
 </script>
 
