@@ -26,20 +26,6 @@ p {
     line-height: 1.6;
 }
 
-/* Floating hearts */
-.heart {
-    position: fixed;
-    bottom: -20px;
-    font-size: 20px;
-    animation: float 6s linear infinite;
-    opacity: 0.7;
-}
-@keyframes float {
-    from { transform: translateY(0); opacity: 0.8; }
-    to { transform: translateY(-100vh); opacity: 0; }
-}
-
-/* Card */
 .card-box {
     background: rgba(255,255,255,0.18);
     border-radius: 25px;
@@ -49,7 +35,9 @@ p {
     box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }
 
-.hidden { display: none; }
+.hidden {
+    display: none;
+}
 
 .valentine-question {
     font-size: 1.5rem;
@@ -61,43 +49,44 @@ p {
     background: #fff;
     color: #ff4d6d;
     border: none;
-    padding: 10px 22px;
+    padding: 10px 20px;
     border-radius: 25px;
     margin: 8px;
     font-size: 1rem;
     cursor: pointer;
-    position: relative;
 }
 
-/* Shake */
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-}
-.shake { animation: shake 0.4s; }
-
-/* Ring */
 .ring {
-    font-size: 4.5rem;
-    margin: 15px 0;
+    font-size: 4rem;
+    animation: ringPop 1s ease forwards;
 }
 
-/* Typing */
-.typing {
-    font-size: 1.05rem;
-    line-height: 1.6;
+@keyframes ringPop {
+    0% { transform: scale(0); opacity: 0; }
+    70% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); }
 }
 
-/* Confetti */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes float {
+    from { transform: translateY(0); opacity: 0.8; }
+    to { transform: translateY(-100vh); opacity: 0; }
+}
+
 .confetti {
     position: fixed;
     top: -10px;
     font-size: 18px;
     animation: confettiFall 3s linear forwards;
 }
+
 @keyframes confettiFall {
     to {
         transform: translateY(110vh) rotate(360deg);
@@ -105,14 +94,9 @@ p {
     }
 }
 
-/* Sparkle */
-.sparkle {
-    position: fixed;
-    font-size: 18px;
-    animation: sparkle 1.5s ease-out forwards;
-}
-@keyframes sparkle {
-    to { opacity: 0; transform: scale(2); }
+footer {
+    margin-top: 45px;
+    font-size: 0.95rem;
 }
 </style>
 </head>
@@ -120,57 +104,50 @@ p {
 <body onclick="enableSound()">
 
 <h1>Hey You ❤️</h1>
+<p>I made this little page for you,<br>because some feelings deserve more than just words 💕</p>
 
-<p>
-I made this little page for you,<br>
-because some feelings deserve more than just words 💕
-</p>
+<div class="card-box" onclick="openCard(event)">
+    <div id="closedCard">
+        💌 Tap to open this 💌
+        <p style="font-size:0.95rem;">(trust me)</p>
+    </div>
 
-<div class="card-box">
-    <div id="question">
+    <div id="openCard" class="hidden">
         <div class="valentine-question">
             Will you be my Valentine? ❤️
         </div>
 
-        <p id="noText" style="opacity:0.9;">Soch lo ache se 😌</p>
-
         <button class="answer-btn" onclick="sayYes(event)">Yes 💖</button>
-        <button class="answer-btn" id="noBtn"
-                onclick="sayNo()"
-                onmouseover="runAway()">No 🙃</button>
-    </div>
+        <button class="answer-btn" id="noBtn" onclick="handleNo()">No 🙃</button>
 
-    <div id="yesScreen" class="hidden">
-        <div class="ring">💍</div>
-        <div id="typing" class="typing"></div>
+        <div id="response" class="hidden"></div>
     </div>
 </div>
 
-<p style="font-size:0.9rem; opacity:0.9;">(tap anywhere to enable music 🎶)</p>
+<p style="font-size:0.9rem;">(tap anywhere to enable music 🎶)</p>
 
-<audio id="bgMusic" loop muted>
+<audio id="bgMusic" autoplay loop muted>
     <source src="https://raw.githubusercontent.com/ank0809/Rose-day/e8b44a007b0661bc1c584f677fe703e3a44e7676/tum-se-hi-from-jab-we-met_8h436GOY.mp3" type="audio/mpeg">
 </audio>
 
-<footer style="margin-top:40px; font-size:0.95rem;">
+<footer>
 Always yours,<br>
 <b>Your Farzi Engineer 😌</b>
 </footer>
 
 <script>
-/* Hearts */
+/* Floating hearts */
 function createHeart() {
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.innerHTML = "💗";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 7000);
 }
 setInterval(createHeart, 450);
 
-/* Music */
+/* Music enable */
 let soundEnabled = false;
 function enableSound() {
     if (!soundEnabled) {
@@ -181,99 +158,79 @@ function enableSound() {
     }
 }
 
-/* NO logic */
-let noCount = 0;
-const noLines = [
-    "Are you sure? 😅",
-    "Ek baar soch lo na 🥺",
-    "Itna bhi bhaav mat khao 😌",
-    "Dil thoda sa hurt hua 💔",
-    "YES bolne me zyada cute lagogi 😏",
-    "Bas thoda sa… please 🥹",
-    "Almost maan hi gayi lagta hai 😬",
-    "Last try… pakka 😔",
-    "Bas ab sirf YES bacha 😄"
-];
-
-function sayNo() {
-    const btn = document.getElementById("noBtn");
-    btn.classList.add("shake");
-    setTimeout(() => btn.classList.remove("shake"), 400);
-
-    if (noCount < noLines.length) {
-        document.getElementById("noText").innerText = noLines[noCount];
-        noCount++;
-    }
-    if (noCount >= 9) {
-        btn.style.display = "none";
-    }
+/* Open card */
+function openCard(e) {
+    e.stopPropagation();
+    document.getElementById("closedCard").classList.add("hidden");
+    document.getElementById("openCard").classList.remove("hidden");
 }
 
-function runAway() {
-    const btn = document.getElementById("noBtn");
-    const x = Math.random() * 200 - 100;
-    const y = Math.random() * 200 - 100;
-    btn.style.transform = `translate(${x}px, ${y}px)`;
-}
-
-/* YES */
+/* YES logic */
 function sayYes(e) {
     e.stopPropagation();
-    document.getElementById("question").classList.add("hidden");
-    document.getElementById("yesScreen").classList.remove("hidden");
-    startTyping();
+
+    const noBtn = document.getElementById("noBtn");
+    if (noBtn) noBtn.remove();
+
+    const response = document.getElementById("response");
+    response.classList.remove("hidden");
+    response.innerHTML = `
+        <div class="ring">💍</div>
+        <p>You just made my heart say YES forever 💕</p>
+    `;
     launchConfetti();
-    launchSparkles();
 }
 
-/* Typing */
-const lines = [
-    "Hum mile randomly…",
-    "aur maine kabhi socha nahi tha,",
-    "ki main tumhe itna chahne lagunga 💭",
-    "",
-    "Kehte hain kuch bhi accidentally nahi hota…",
-    "shayad tumse milna bhi destiny ka hi plan tha ✨",
-    "",
-    "Tumse baat karke laga,",
-    "tum wahi ho jiska main intezaar kar raha tha 🤍"
-];
-let i = 0, j = 0;
-function startTyping() {
-    const el = document.getElementById("typing");
-    if (i < lines.length) {
-        if (j < lines[i].length) {
-            el.innerHTML += lines[i][j++];
-            setTimeout(startTyping, 45);
-        } else {
-            el.innerHTML += "<br>";
-            i++; j = 0;
-            setTimeout(startTyping, 350);
-        }
+/* NO logic (9 times popup) */
+let noClickCount = 0;
+const maxNoClicks = 9;
+
+function handleNo() {
+    noClickCount++;
+
+    const messages = [
+        "Are you sure? 🥺",
+        "Think again 😢",
+        "My heart is fragile 💔",
+        "It will hurt 😞",
+        "Still no? 😔",
+        "Last chance 😶",
+        "Pleaseeee 🥹",
+        "Okay… 😣",
+        "You left me no option 😌"
+    ];
+
+    alert(messages[noClickCount - 1]);
+
+    if (noClickCount >= maxNoClicks) {
+        forceYes();
     }
 }
 
-/* Confetti + Sparkle */
+/* Force YES */
+function forceYes() {
+    const noBtn = document.getElementById("noBtn");
+    if (noBtn) noBtn.remove();
+
+    const response = document.getElementById("response");
+    response.classList.remove("hidden");
+    response.innerHTML = `
+        <p style="font-size:1.3rem; font-weight:bold;">
+            Looks like YES was always the answer ❤️😌
+        </p>
+        <button class="answer-btn" onclick="sayYes(event)">Yes 💖</button>
+    `;
+}
+
+/* Confetti */
 function launchConfetti() {
     for (let i = 0; i < 30; i++) {
-        const c = document.createElement("div");
-        c.className = "confetti";
-        c.innerHTML = ["💖","✨","🎉"][Math.floor(Math.random()*3)];
-        c.style.left = Math.random() * 100 + "vw";
-        document.body.appendChild(c);
-        setTimeout(() => c.remove(), 3000);
-    }
-}
-
-function launchSparkles() {
-    for (let i = 0; i < 12; i++) {
-        const s = document.createElement("div");
-        s.className = "sparkle";
-        s.innerHTML = "✨";
-        s.style.left = (45 + Math.random()*10) + "%";
-        s.style.top = (45 + Math.random()*10) + "%";
-        document.body.appendChild(s);
-        setTimeout(() => s.remove(), 1500);
+        const conf = document.createElement("div");
+        conf.className = "confetti";
+        conf.innerHTML = ["🎉","💖","✨","💍"][Math.floor(Math.random()*4)];
+        conf.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 3000);
     }
 }
 </script>
