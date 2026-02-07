@@ -69,6 +69,12 @@ p {
     transition: 0.3s;
 }
 
+/* 🚫 FORCE NO BUTTON TO NEVER MOVE */
+#noBtn {
+    position: static !important;
+    transform: none !important;
+}
+
 /* Ring */
 .ring {
     font-size: 4rem;
@@ -139,7 +145,7 @@ Always yours,<br>
 <b>Your Farzi Engineer 😌</b>
 </footer>
 
-<!-- Floating Hearts -->
+<!-- Floating hearts -->
 <script>
 function createHeart() {
     const heart = document.createElement("div");
@@ -159,12 +165,12 @@ let noClickCount = 0;
 
 const funnyNoLines = [
     "Arre soch le yaar 😏",
-    "Itni jaldi NO? Dil thoda sa dukha 💔",
+    "Itni jaldi NO? Dil dukha 💔",
     "Tum itni strong kyun ho 😭",
     "Dil bola — ek aur try 💖",
-    "Tumhe manaana bhi cute lagta hai 😌",
-    "Universe still waiting ✨",
-    "Bas bas… attitude noted 😎",
+    "Manaana bhi cute lagta hai 😌",
+    "Universe ab bhi wait kar raha ✨",
+    "Bas bas… drama kaafi 😎",
     "Okay fine… destiny jeet gayi ❤️"
 ];
 
@@ -182,15 +188,20 @@ function openCard() {
     document.getElementById("openCard").classList.remove("hidden");
 }
 
-/* NO button (NO FLOATING) */
+/* ❌ NO BUTTON — NO MOVEMENT */
 function handleNo() {
     const btn = document.getElementById("noBtn");
     const response = document.getElementById("response");
 
     noClickCount++;
 
+    // 🔒 DOUBLE SAFETY
+    btn.style.transform = "none";
+    btn.style.position = "static";
+
     response.classList.remove("hidden");
-    response.innerHTML = `<p>${funnyNoLines[Math.min(noClickCount - 1, funnyNoLines.length - 1)]}</p>`;
+    response.innerHTML =
+        `<p>${funnyNoLines[Math.min(noClickCount - 1, funnyNoLines.length - 1)]}</p>`;
 
     if (noClickCount >= 8) {
         btn.innerHTML = "Yes 💖";
@@ -218,8 +229,7 @@ function sayYes(e) {
         </p>
 
         <p>
-        Wo kehte hain na,<br>
-        accidently kuch nahi hota,<br>
+        Log kehte hain accidently kuch nahi hota,<br>
         sab destiny ka plan hota hai ✨
         </p>
 
@@ -227,11 +237,11 @@ function sayYes(e) {
         Tumhara behaviour,<br>
         tumhari care,<br>
         aur tumhari simplicity<br>
-        mujhe har din tumhari taraf kheench leti hai 💕
+        mujhe har roz tumhari taraf kheench leti hai 💕
         </p>
 
         <p>
-        <b>Shayad isiliye YES bolna itna easy laga 😌</b>
+        <b>Isiliye YES bolna bilkul natural laga 😌</b>
         </p>
     `;
 
