@@ -89,7 +89,7 @@ button:hover { transform: scale(1.05); }
 footer { margin-top:40px; font-size:0.95rem; }
 </style>
 </head>
-<body onclick="enableSound()">
+<body>
 
 <h1>Hey You ❤️</h1>
 <div class="intro">
@@ -98,27 +98,27 @@ footer { margin-top:40px; font-size:0.95rem; }
     sirf messages mein fit nahi hoti…
 </div>
 
-<!-- Proposal Card -->
-<div class="card" id="proposalCard">
+<!-- First Proposal Card -->
+<div class="card" id="card-proposal">
     <h2>Will you be my Valentine? 💖</h2>
-    <button id="yesBtn">Yes 💕</button>
-    <button id="noBtn">No 🙃</button>
+    <button id="btn-yes">Yes 💕</button>
+    <button id="btn-no">No 🙃</button>
 </div>
 
 <!-- Confession Card -->
-<div class="card hidden fade-in" id="confessionCard">
+<div class="card hidden fade-in" id="card-confession">
     <div class="ring">💍</div>
     <p>We met accidentally…<br>aur phir bas baatein start ho gayi 😊<br>bina plan ke, bina expectation ke.</p>
     <p>Waqt guzarta gaya,<br>aur mujhe pata hi nahi chala<br>kab tum meri aadat ban gaye 💫</p>
     <p>Tum bilkul meri soch jaise ho ✨<br>tumhara behaviour,<br>tumhari simplicity —<br>sab kuch bilkul mere type ka 🫶</p>
     <p>Accidently mile hum,<br>par lagta hai destiny ne<br>mujhe jaan-boojh kar<br>tumse milwaya tha 😌❤️</p>
-    <button id="popupBtn">Ek last baat… 💌</button>
+    <button id="btn-popup">Ek last baat… 💌</button>
 </div>
 
 <!-- Second Popup -->
-<div class="popup hidden" id="lovePopup2">
+<div class="popup hidden" id="popup-love">
     <div class="popup-card">
-        <div class="close" id="popupClose">❌</div>
+        <div class="close" id="popup-close">❌</div>
         <p>From knowing your name to knowing everything about you.</p>
         <p>It has been the most beautiful journey of my life.</p>
         <p class="glow" style="font-weight:600; font-size:1.1rem;">Hey, please stay with me forever 💞</p>
@@ -130,71 +130,71 @@ footer { margin-top:40px; font-size:0.95rem; }
     <b>Your Farzi Engineer 😌</b>
 </footer>
 
-<audio id="bgSong" loop muted>
+<audio id="bg-song" loop muted>
     <source src="https://raw.githubusercontent.com/ank0809/Rose-day/e8b44a007b0661bc1c584f677fe703e3a44e7676/tum-se-hi-from-jab-we-met_8h436GOY.mp3">
 </audio>
 
 <script>
-let soundEnabled=false;
-function enableSound(){
- if(!soundEnabled){ bgSong.muted=false; bgSong.play(); soundEnabled=true; }
-}
+// Background music
+let musicStarted = false;
+document.body.addEventListener("click", () => {
+    if(!musicStarted){ document.getElementById("bg-song").muted=false; document.getElementById("bg-song").play(); musicStarted=true;}
+}, {once:true});
 
-// Yes / No buttons
+// Buttons
+const btnYes = document.getElementById("btn-yes");
+const btnNo = document.getElementById("btn-no");
+const cardProposal = document.getElementById("card-proposal");
+const cardConfession = document.getElementById("card-confession");
+
 let noCount = 0;
 const savageLines = ["Dil dukha diya 😭","Still no? 🥺","Thoda pyaar dedo 💖","Itna bhi kya gussa? 😔","Ek smile to de do 😊","Thoda sa YES bol do na 🫣","Ab bas YES hi bacha 💞"];
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const proposalCard = document.getElementById("proposalCard");
-const confessionCard = document.getElementById("confessionCard");
 
-yesBtn.addEventListener("click", () => {
-    proposalCard.classList.add("hidden");
-    confessionCard.classList.remove("hidden");
+btnYes.addEventListener("click", ()=>{
+    cardProposal.classList.add("hidden");
+    cardConfession.classList.remove("hidden");
 });
 
-noBtn.addEventListener("click", () => {
+btnNo.addEventListener("click", ()=>{
     if(noCount < savageLines.length){
-        noBtn.innerText = savageLines[noCount++];
+        btnNo.innerText = savageLines[noCount++];
     } else {
-        yesBtn.click();
+        btnYes.click();
     }
 });
 
-// Popup logic
-const popup = document.getElementById("lovePopup2");
-const popupBtn = document.getElementById("popupBtn");
-const popupClose = document.getElementById("popupClose");
+// Popup
+const btnPopup = document.getElementById("btn-popup");
+const popup = document.getElementById("popup-love");
+const popupClose = document.getElementById("popup-close");
 
-popupBtn.addEventListener("click", () => {
-    popup.classList.remove("hidden", "fade-out");
+btnPopup.addEventListener("click", ()=>{
+    popup.classList.remove("hidden","fade-out");
     popup.classList.add("fade-in");
     createHearts();
 });
 
-popupClose.addEventListener("click", () => closePopup());
-
-popup.addEventListener("click", (e)=>{
-    if(e.target===popup) closePopup();
-});
+popupClose.addEventListener("click", closePopup);
+popup.addEventListener("click", (e)=>{ if(e.target===popup) closePopup(); });
 
 function closePopup(){
     popup.classList.remove("fade-in");
     popup.classList.add("fade-out");
-    setTimeout(()=> popup.classList.add("hidden"), 500);
+    setTimeout(()=>popup.classList.add("hidden"),500);
 }
 
-// Floating hearts dynamically
+// Floating hearts inside popup
 function createHearts(){
     const popupCard = popup.querySelector(".popup-card");
-    popupCard.querySelectorAll(".heart").forEach(h => h.remove());
+    // remove existing hearts
+    popupCard.querySelectorAll(".heart").forEach(h=>h.remove());
     for(let i=0;i<10;i++){
         const heart = document.createElement("span");
-        heart.className = "heart";
+        heart.className="heart";
         heart.innerText = ["❤️","💖","💞","💗"][Math.floor(Math.random()*4)];
-        heart.style.left = Math.random()*90 + "%";
-        heart.style.fontSize = (15 + Math.random()*10) + "px";
-        heart.style.animationDelay = (Math.random()*2) + "s";
+        heart.style.left = Math.random()*90+"%";
+        heart.style.fontSize = (15+Math.random()*10)+"px";
+        heart.style.animationDelay = (Math.random()*2)+"s";
         popupCard.appendChild(heart);
     }
 }
