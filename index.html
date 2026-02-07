@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -60,16 +60,16 @@ button {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Floating hearts */
-.heart {
+/* Floating emoji */
+.float {
     position: fixed;
     bottom: -10px;
-    font-size: 20px;
-    animation: float 6s linear infinite;
-    opacity: 0.8;
+    font-size: 22px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.9;
 }
-@keyframes float {
-    to { transform: translateY(-100vh); opacity: 0; }
+@keyframes floatUp {
+    to { transform: translateY(-110vh); opacity: 0; }
 }
 
 /* Ring */
@@ -125,16 +125,9 @@ footer {
     </p>
 
     <p>
-    Sach bataun to,<br>
-    main ladkiyon se thoda door bhaagta tha 🙃<br>
-    par tumse milne ke baad laga<br>
-    sab log same nahi hote ❤️
-    </p>
-
-    <p>
     Tum bilkul meri soch jaise ho ✨<br>
     tumhara behaviour,<br>
-    tumhari simplicity,<br>
+    tumhari simplicity —<br>
     sab kuch bilkul mere type ka 🫶
     </p>
 
@@ -159,6 +152,7 @@ footer {
 </audio>
 
 <script>
+/* Enable sound on tap */
 let soundEnabled = false;
 function enableSound() {
     if (!soundEnabled) {
@@ -169,16 +163,16 @@ function enableSound() {
     }
 }
 
-/* NO button logic */
+/* UPDATED NO button lines (as requested) */
 let noCount = 0;
 const savageLines = [
-    "Soch lo 😌",
-    "Itna bhaav? 🙃",
-    "Dil maan jao 💓",
-    "Sure ho? 👀",
-    "Cute sa NO 😄",
-    "Bas ek aur try 😏",
-    "Ab YES hi bacha 💖"
+    "Dil dukha diya 😭",
+    "Still no? 🥺",
+    "Thoda pyaar dedo 💖",
+    "Itna bhi kya gussa? 😔",
+    "Ek smile to de do 😊",
+    "Thoda sa YES bol do na 🫣",
+    "Ab bas YES hi bacha 💞"
 ];
 
 function handleNo() {
@@ -196,35 +190,44 @@ function handleNo() {
 function openConfession() {
     document.getElementById("proposalCard").classList.add("hidden");
     document.getElementById("confessionCard").classList.remove("hidden");
-    startHearts();
+    startYesEmojis();
     startConfetti();
+}
+
+/* First page floating hearts */
+const firstPageHearts = ["💞","💓"];
+setInterval(() => {
+    const e = document.createElement("div");
+    e.className = "float";
+    e.innerHTML = firstPageHearts[Math.floor(Math.random()*firstPageHearts.length)];
+    e.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(e);
+    setTimeout(() => e.remove(), 6000);
+}, 700);
+
+/* YES page emojis */
+function startYesEmojis() {
+    const yesEmojis = ["👩‍❤️‍💋‍👨","🫂","🫶","💞","💓","💍"];
+    setInterval(() => {
+        const e = document.createElement("div");
+        e.className = "float";
+        e.innerHTML = yesEmojis[Math.floor(Math.random()*yesEmojis.length)];
+        e.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(e);
+        setTimeout(() => e.remove(), 6000);
+    }, 500);
 }
 
 /* Confetti */
 function startConfetti() {
-    for (let i = 0; i < 35; i++) {
+    for (let i = 0; i < 30; i++) {
         const c = document.createElement("div");
+        c.className = "float";
         c.innerHTML = ["🎉","✨","💖","💍"][Math.floor(Math.random()*4)];
-        c.style.position = "fixed";
         c.style.left = Math.random() * 100 + "vw";
-        c.style.top = "-10px";
-        c.style.fontSize = "18px";
-        c.style.animation = "float 5s linear";
         document.body.appendChild(c);
         setTimeout(() => c.remove(), 5000);
     }
-}
-
-/* Floating hearts */
-function startHearts() {
-    setInterval(() => {
-        const h = document.createElement("div");
-        h.className = "heart";
-        h.innerHTML = "❤️";
-        h.style.left = Math.random() * 100 + "vw";
-        document.body.appendChild(h);
-        setTimeout(() => h.remove(), 6000);
-    }, 500);
 }
 </script>
 
