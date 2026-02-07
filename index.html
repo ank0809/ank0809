@@ -16,15 +16,8 @@ body {
     overflow-x: hidden;
 }
 
-h1 {
-    font-size: 2.3rem;
-    margin-top: 25px;
-}
-
-p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-}
+h1 { font-size: 2.3rem; margin-top: 25px; }
+p { font-size: 1.1rem; line-height: 1.6; }
 
 .card-box {
     background: rgba(255,255,255,0.18);
@@ -35,15 +28,7 @@ p {
     box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }
 
-.hidden {
-    display: none;
-}
-
-.valentine-question {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 18px;
-}
+.hidden { display: none; }
 
 .answer-btn {
     background: #fff;
@@ -56,9 +41,22 @@ p {
     cursor: pointer;
 }
 
-.ring {
-    font-size: 4rem;
-    animation: ringPop 1s ease forwards;
+/* 💥 Shake animation */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+.shake {
+    animation: shake 0.4s;
+}
+
+/* 💍 BIG ring */
+.big-ring {
+    font-size: 7rem;
+    animation: ringPop 1.2s ease forwards;
 }
 
 @keyframes ringPop {
@@ -67,6 +65,7 @@ p {
     100% { transform: scale(1); }
 }
 
+/* 💗 Floating hearts */
 .heart {
     position: fixed;
     bottom: -20px;
@@ -74,163 +73,126 @@ p {
     animation: float 6s linear infinite;
     opacity: 0.7;
 }
-
 @keyframes float {
-    from { transform: translateY(0); opacity: 0.8; }
     to { transform: translateY(-100vh); opacity: 0; }
 }
 
+/* 🎉 Confetti */
 .confetti {
     position: fixed;
     top: -10px;
     font-size: 18px;
     animation: confettiFall 3s linear forwards;
 }
-
 @keyframes confettiFall {
-    to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-footer {
-    margin-top: 45px;
-    font-size: 0.95rem;
+    to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }
 </style>
 </head>
 
 <body onclick="enableSound()">
 
+<div id="mainContent">
 <h1>Hey You ❤️</h1>
-<p>I made this little page for you,<br>because some feelings deserve more than just words 💕</p>
+<p>Some feelings deserve more than just words 💕</p>
 
 <div class="card-box" onclick="openCard(event)">
-    <div id="closedCard">
-        💌 Tap to open this 💌
-        <p style="font-size:0.95rem;">(trust me)</p>
-    </div>
+    <div id="closedCard">💌 Tap to open this 💌</div>
 
     <div id="openCard" class="hidden">
-        <div class="valentine-question">
+        <p style="font-size:1.4rem;font-weight:bold;">
             Will you be my Valentine? ❤️
-        </div>
-
+        </p>
         <button class="answer-btn" onclick="sayYes(event)">Yes 💖</button>
         <button class="answer-btn" id="noBtn" onclick="handleNo()">No 🙃</button>
-
-        <div id="response" class="hidden"></div>
     </div>
 </div>
+</div>
 
-<p style="font-size:0.9rem;">(tap anywhere to enable music 🎶)</p>
+<!-- 💍 FINAL LOVE SCREEN -->
+<div id="finalScreen" class="hidden">
+    <div class="big-ring">💍</div>
+    <p style="margin-top:20px;font-size:1.15rem;opacity:0.95;">
+        We met randomly…<br>
+        and honestly, I never thought<br>
+        ki main itna tumse pyaar karne lagunga 🥹❤️
+        <br><br>
+        Log kehte hain kuch bhi accidentally nahi hota,<br>
+        shayad sach hi kehte hain…
+        <br><br>
+        Tumse baat karke laga,<br>
+        jaise tum wahi ho jiska main intezaar kar raha tha ✨
+        <br><br>
+        If destiny had a favorite moment,<br>
+        I think it was the day I met you 💕
+    </p>
+</div>
 
 <audio id="bgMusic" autoplay loop muted>
     <source src="https://raw.githubusercontent.com/ank0809/Rose-day/e8b44a007b0661bc1c584f677fe703e3a44e7676/tum-se-hi-from-jab-we-met_8h436GOY.mp3" type="audio/mpeg">
 </audio>
 
-<footer>
-Always yours,<br>
-<b>Your Farzi Engineer 😌</b>
-</footer>
-
 <script>
-/* Floating hearts */
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💗";
-    heart.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 7000);
-}
-setInterval(createHeart, 450);
+/* ❤️ Floating hearts */
+setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "💗";
+    h.style.left = Math.random()*100 + "vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),7000);
+},450);
 
-/* Music enable */
-let soundEnabled = false;
-function enableSound() {
-    if (!soundEnabled) {
-        const music = document.getElementById("bgMusic");
-        music.muted = false;
-        music.play();
-        soundEnabled = true;
+/* 🎵 Music */
+let soundEnabled=false;
+function enableSound(){
+    if(!soundEnabled){
+        bgMusic.muted=false;
+        bgMusic.play();
+        soundEnabled=true;
     }
 }
 
 /* Open card */
-function openCard(e) {
+function openCard(e){
     e.stopPropagation();
-    document.getElementById("closedCard").classList.add("hidden");
-    document.getElementById("openCard").classList.remove("hidden");
+    closedCard.classList.add("hidden");
+    openCardDiv.classList.remove("hidden");
 }
+const openCardDiv=document.getElementById("openCard");
 
-/* YES logic */
-function sayYes(e) {
-    e.stopPropagation();
+/* NO logic */
+let noCount=0;
+function handleNo(){
+    noCount++;
+    const noBtn=document.getElementById("noBtn");
+    noBtn.classList.add("shake");
+    setTimeout(()=>noBtn.classList.remove("shake"),400);
 
-    const noBtn = document.getElementById("noBtn");
-    if (noBtn) noBtn.remove();
+    alert("Are you sure? 🥺");
 
-    const response = document.getElementById("response");
-    response.classList.remove("hidden");
-    response.innerHTML = `
-        <div class="ring">💍</div>
-        <p>You just made my heart say YES forever 💕</p>
-    `;
-    launchConfetti();
-}
-
-/* NO logic (9 times popup) */
-let noClickCount = 0;
-const maxNoClicks = 9;
-
-function handleNo() {
-    noClickCount++;
-
-    const messages = [
-        "Are you sure? 🥺",
-        "Think again 😢",
-        "My heart is fragile 💔",
-        "It will hurt 😞",
-        "Still no? 😔",
-        "Last chance 😶",
-        "Pleaseeee 🥹",
-        "Okay… 😣",
-        "You left me no option 😌"
-    ];
-
-    alert(messages[noClickCount - 1]);
-
-    if (noClickCount >= maxNoClicks) {
-        forceYes();
+    if(noCount>=9){
+        noBtn.remove();
     }
 }
 
-/* Force YES */
-function forceYes() {
-    const noBtn = document.getElementById("noBtn");
-    if (noBtn) noBtn.remove();
-
-    const response = document.getElementById("response");
-    response.classList.remove("hidden");
-    response.innerHTML = `
-        <p style="font-size:1.3rem; font-weight:bold;">
-            Looks like YES was always the answer ❤️😌
-        </p>
-        <button class="answer-btn" onclick="sayYes(event)">Yes 💖</button>
-    `;
+/* YES logic */
+function sayYes(e){
+    e.stopPropagation();
+    document.getElementById("mainContent").remove();
+    document.getElementById("finalScreen").classList.remove("hidden");
+    launchConfetti();
 }
 
 /* Confetti */
-function launchConfetti() {
-    for (let i = 0; i < 30; i++) {
-        const conf = document.createElement("div");
-        conf.className = "confetti";
-        conf.innerHTML = ["🎉","💖","✨","💍"][Math.floor(Math.random()*4)];
-        conf.style.left = Math.random() * 100 + "vw";
-        document.body.appendChild(conf);
-        setTimeout(() => conf.remove(), 3000);
+function launchConfetti(){
+    for(let i=0;i<30;i++){
+        const c=document.createElement("div");
+        c.className="confetti";
+        c.innerHTML=["🎉","💖","✨","💍"][Math.floor(Math.random()*4)];
+        c.style.left=Math.random()*100+"vw";
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),3000);
     }
 }
 </script>
