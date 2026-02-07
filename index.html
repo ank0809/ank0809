@@ -39,7 +39,7 @@ p {
     to { transform: translateY(-100vh); opacity: 0; }
 }
 
-/* Valentine Card */
+/* Card */
 .card-box {
     background: rgba(255,255,255,0.18);
     border-radius: 25px;
@@ -47,7 +47,6 @@ p {
     margin: 40px auto;
     max-width: 340px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-    cursor: pointer;
 }
 
 .hidden { display: none; }
@@ -62,7 +61,7 @@ p {
     background: #fff;
     color: #ff4d6d;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 22px;
     border-radius: 25px;
     margin: 8px;
     font-size: 1rem;
@@ -70,7 +69,7 @@ p {
     transition: 0.3s;
 }
 
-/* Ring animation */
+/* Ring */
 .ring {
     font-size: 4rem;
     animation: ringPop 1s ease forwards;
@@ -98,7 +97,6 @@ p {
 footer {
     margin-top: 45px;
     font-size: 0.95rem;
-    opacity: 0.95;
 }
 </style>
 </head>
@@ -112,11 +110,10 @@ I made this little page for you,<br>
 because some feelings deserve more than just words 💕
 </p>
 
-<!-- 💌 OPENABLE CARD -->
 <div class="card-box" onclick="openCard()">
     <div id="closedCard">
         💌 Tap to open this 💌
-        <p style="font-size:0.95rem; opacity:0.9;">(trust me)</p>
+        <p style="font-size:0.9rem;">(trust me)</p>
     </div>
 
     <div id="openCard" class="hidden">
@@ -125,15 +122,14 @@ because some feelings deserve more than just words 💕
         </div>
 
         <button class="answer-btn" onclick="sayYes(event)">Yes 💖</button>
-        <button class="answer-btn" id="noBtn" onmouseover="runAway()">No 🙃</button>
+        <button class="answer-btn" id="noBtn" onclick="handleNo()">No 🙃</button>
 
         <div id="response" class="hidden"></div>
     </div>
 </div>
 
-<p style="font-size:0.9rem; opacity:0.9;">(tap anywhere to enable music 🎶)</p>
+<p style="font-size:0.9rem;">(tap anywhere to enable music 🎶)</p>
 
-<!-- 🎵 BACKGROUND MUSIC -->
 <audio id="bgMusic" autoplay loop muted>
     <source src="https://raw.githubusercontent.com/ank0809/Rose-day/e8b44a007b0661bc1c584f677fe703e3a44e7676/tum-se-hi-from-jab-we-met_8h436GOY.mp3" type="audio/mpeg">
 </audio>
@@ -163,13 +159,13 @@ let noClickCount = 0;
 
 const funnyNoLines = [
     "Arre soch le yaar 😏",
-    "Itni jaldi NO? Dil toot raha hai 💔",
-    "Tum aise zulm na karo 😭",
-    "No button bhi thak gaya bhaagte bhaagte 🏃",
-    "Dil: try again 💖",
-    "Itna bhaav bhi theek nahi 😌",
-    "Universe facepalm 🤦‍♂️",
-    "Bas bas… ab drama band 😎"
+    "Itni jaldi NO? Dil thoda sa dukha 💔",
+    "Tum itni strong kyun ho 😭",
+    "Dil bola — ek aur try 💖",
+    "Tumhe manaana bhi cute lagta hai 😌",
+    "Universe still waiting ✨",
+    "Bas bas… attitude noted 😎",
+    "Okay fine… destiny jeet gayi ❤️"
 ];
 
 function enableSound() {
@@ -186,16 +182,12 @@ function openCard() {
     document.getElementById("openCard").classList.remove("hidden");
 }
 
-/* 🏃 NO button runs away */
-function runAway() {
+/* NO button (NO FLOATING) */
+function handleNo() {
     const btn = document.getElementById("noBtn");
     const response = document.getElementById("response");
 
     noClickCount++;
-
-    const x = Math.random() * 200 - 100;
-    const y = Math.random() * 200 - 100;
-    btn.style.transform = `translate(${x}px, ${y}px)`;
 
     response.classList.remove("hidden");
     response.innerHTML = `<p>${funnyNoLines[Math.min(noClickCount - 1, funnyNoLines.length - 1)]}</p>`;
@@ -204,13 +196,12 @@ function runAway() {
         btn.innerHTML = "Yes 💖";
         btn.style.background = "#ff4d6d";
         btn.style.color = "#fff";
-        btn.onmouseover = null;
         btn.onclick = sayYes;
-        response.innerHTML = `<p>Okay okay… ab maan hi jao ❤️</p>`;
+        response.innerHTML = `<p>Ab NO ka option hi nahi raha 😌❤️</p>`;
     }
 }
 
-/* 💍 YES = romantic lines */
+/* YES */
 function sayYes(e) {
     if (e) e.stopPropagation();
 
@@ -219,6 +210,7 @@ function sayYes(e) {
 
     response.innerHTML = `
         <div class="ring">💍</div>
+
         <p>
         Accidentally mile apn…<br>
         aur pata bhi nahi chala kab tum<br>
@@ -227,8 +219,8 @@ function sayYes(e) {
 
         <p>
         Wo kehte hain na,<br>
-        accidently kuch nahi hota…<br>
-        sab kuch destiny decide karti hai ✨
+        accidently kuch nahi hota,<br>
+        sab destiny ka plan hota hai ✨
         </p>
 
         <p>
@@ -239,15 +231,14 @@ function sayYes(e) {
         </p>
 
         <p>
-        Shayad isiliye…<br>
-        <b>YES bolna bhi itna natural laga 😌</b>
+        <b>Shayad isiliye YES bolna itna easy laga 😌</b>
         </p>
     `;
 
     launchConfetti();
 }
 
-/* 🎉 Confetti */
+/* Confetti */
 function launchConfetti() {
     for (let i = 0; i < 30; i++) {
         const conf = document.createElement("div");
