@@ -161,15 +161,16 @@ setInterval(createHeart, 450);
 let soundEnabled = false;
 let noClickCount = 0;
 
+/* 😈 SAVAGE NO BUTTON TEXTS */
 const noButtonTexts = [
     "No 🙃",
-    "Arre soch lo 😏",
-    "Itni jaldi mana? 💔",
-    "Dil dukha diya 😭",
-    "Still no? 🥺",
-    "Thoda pyaar dedo 💖",
-    "Bas yaar 😌",
-    "Okay… YES hi sahi ❤️"
+    "Seriously? NO? 😒",
+    "Itna attitude kis baat ka 😏",
+    "Dil ka murder kar rahi ho 💔",
+    "Tumhe pachtaawa hoga 😌",
+    "Last chance de raha hoon 😤",
+    "Universe bhi facepalm 🤦‍♂️",
+    "Bas bas… YES hi likh deta hoon ❤️"
 ];
 
 function enableSound() {
@@ -186,13 +187,12 @@ function openCard() {
     document.getElementById("openCard").classList.remove("hidden");
 }
 
-/* NO button text changes every click */
+/* NO button text changes on every click */
 function handleNo() {
     const btn = document.getElementById("noBtn");
-
     noClickCount++;
 
-    if (noClickCount < 8) {
+    if (noClickCount < noButtonTexts.length) {
         btn.innerText = noButtonTexts[noClickCount];
     } else {
         btn.innerText = "Yes 💖";
@@ -202,12 +202,11 @@ function handleNo() {
     }
 }
 
-/* YES button */
+/* YES */
 function sayYes(e) {
     if (e) e.stopPropagation();
 
     const card = document.querySelector(".card-box");
-
     card.innerHTML = `
         <div class="ring">💍</div>
 
@@ -218,8 +217,7 @@ function sayYes(e) {
         </p>
 
         <p>
-        Wo kehte hain na,<br>
-        accidently kuch nahi hota,<br>
+        Log kehte hain accidently kuch nahi hota,<br>
         sab destiny ka plan hota hai ✨
         </p>
 
@@ -230,9 +228,8 @@ function sayYes(e) {
         mujhe har roz tumhari taraf kheench leti hai 💕
         </p>
 
-        <p><b>YES bolna bilkul natural laga 😌</b></p>
+        <p><b>Isiliye YES bolna obvious tha 😌</b></p>
     `;
-
     launchConfetti();
 }
 
