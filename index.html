@@ -3,30 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You ❤️</title>
+<title>Just For You ❤️</title>
 
 <style>
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #ff6a88, #ff99ac);
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
     color: #fff;
     text-align: center;
-    padding: 20px;
     overflow-x: hidden;
 }
 
-h1 {
-    font-size: 2.3rem;
-    margin-top: 25px;
-}
+h1 { margin-top: 25px; }
 
-p {
-    font-size: 1.05rem;
-    line-height: 1.7;
-}
-
-.card-box {
+.card {
     background: rgba(255,255,255,0.18);
     border-radius: 25px;
     padding: 25px;
@@ -48,70 +39,26 @@ button {
 
 .hidden { display: none; }
 
-/* Fade-in */
 .fade-in {
-    animation: fadeIn 1.6s ease forwards;
+    animation: fade 1.6s ease-in-out;
 }
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(25px); }
+
+@keyframes fade {
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
-}
-
-/* Ring */
-.ring {
-    font-size: 4rem;
-    animation: ringPop 1s ease forwards;
-}
-@keyframes ringPop {
-    0% { transform: scale(0); opacity: 0; }
-    70% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(1); }
-}
-
-/* Confetti */
-.confetti {
-    position: fixed;
-    top: -10px;
-    font-size: 18px;
-    animation: confettiFall 3s linear forwards;
-}
-@keyframes confettiFall {
-    to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-    }
 }
 
 /* Floating hearts */
 .heart {
     position: fixed;
-    bottom: -20px;
+    bottom: -10px;
     font-size: 20px;
-    animation: floatHeart 6s linear infinite;
-    opacity: 0.8;
-}
-@keyframes floatHeart {
-    from { transform: translateY(0); opacity: 0.9; }
-    to { transform: translateY(-110vh); opacity: 0; }
+    animation: float 6s linear infinite;
 }
 
-/* Savage text */
-.savage {
-    margin-top: 10px;
-    font-size: 0.95rem;
-    font-weight: 600;
-}
-
-.thank-you {
-    margin-top: 20px;
-    font-size: 1.15rem;
-    font-weight: 600;
-}
-
-footer {
-    margin-top: 40px;
-    font-size: 0.95rem;
-    opacity: 0.95;
+@keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
 }
 </style>
 </head>
@@ -120,143 +67,115 @@ footer {
 
 <h1>Hey You ❤️</h1>
 
-<p>
-I made this little page for you,<br>
-because some feelings deserve more than just words 💕
-</p>
-
-<!-- PROPOSAL -->
-<div class="card-box" id="proposalCard">
-    <p style="font-size:1.4rem; font-weight:600;">
-        Will you be my Valentine? ❤️
-    </p>
-
+<div class="card" id="proposalCard">
+    <h2>Will you be my Valentine? 💕</h2>
     <button onclick="openConfession()">Yes 💖</button>
     <button id="noBtn" onclick="handleNo()">No 🙃</button>
-
-    <div id="savageText" class="savage"></div>
 </div>
 
-<!-- CONFESSION -->
-<div class="card-box hidden" id="confessionCard">
-
-    <div class="ring">💍</div>
-
+<div class="card hidden fade-in" id="confessionCard">
     <p>
     We met accidentally…<br>
     aur phir bas baatein shuru ho gayi 😊<br>
-    bina kisi plan ke,<br>
-    bina kisi expectation ke.
+    bina plan ke, bina expectation ke.
     </p>
 
     <p>
-    Waqt dheere-dheere guzarta gaya,<br>
+    Waqt guzarta gaya,<br>
     main tumhe jaanne laga…<br>
-    aur honestly,<br>
-    mujhe pata hi nahi chala<br>
+    aur pata hi nahi chala<br>
     kab tum meri aadat ban gaye 💫
     </p>
 
     <p>
     Sach bataun to,<br>
-    main ladkiyon se thoda door hi bhaagta tha—<br>
-    darr ki wajah se,<br>
-    confusion ki wajah se 🙃
+    main ladkiyon se thoda door bhaagta tha 🙃<br>
+    par tumse milke laga<br>
+    sab log same nahi hote ❤️
     </p>
 
     <p>
-    Par tumse milne ke baad laga,<br>
-    ki shayad sab log same nahi hote ❤️
-    </p>
-
-    <p>
-    Tum is generation se thodi alag ho,<br>
-    bilkul meri soch jaise ✨<br>
+    Tum meri soch jaise ho ✨<br>
     tumhara behaviour,<br>
-    tumhari thinking,<br>
-    aur tumhari simplicity—<br>
-    sab kuch aisa hai<br>
-    jaise main hamesha imagine karta tha… 🫶
+    tumhari simplicity,<br>
+    sab kuch bilkul mere type ka 🫶
     </p>
 
-    <p style="font-weight:600;">
+    <p>
     Accidently mile hum,<br>
     par lagta hai destiny ne<br>
     mujhe jaan-boojh kar<br>
     tumse milwaya tha 😌❤️
     </p>
 
-    <div class="thank-you">
-        🐻 Thank you for saying YES 🫶<br>
-        Ab mera dil officially<br>
-        tumhari zimmedari hai 💖😄
-    </div>
+    <h3>Thank you for choosing me 🐻💖</h3>
 </div>
 
-<footer>
-Always yours,<br>
-<b>Your Farzi Engineer 😌</b>
-</footer>
+<!-- Song -->
+<audio id="song" loop>
+    <source src="rhnuma_raone_srk.mp3" type="audio/mpeg">
+</audio>
 
 <script>
+/* NO button logic */
 let noCount = 0;
-
 const savageLines = [
-    "Soch lo… main fir se poochne wala hoon 😌",
-    "Itna bhi bhaav mat khao 🙃",
-    "Dil already tumhare naam hai waise 😏",
-    "Acha, ek baar aur NO bol ke dekho 👀",
-    "Itna attitude healthy nahi hota 😄",
-    "Tum YES bolne ke bohot kareeb ho 😌",
-    "Bas ek click aur… phir drama khatam 💖"
+    "Soch lo… 😌",
+    "Itna bhaav? 🙃",
+    "Dil maan jao 💓",
+    "Sure ho? 👀",
+    "Cute NO 😄",
+    "Bas ek aur 😏",
+    "Ab YES hi bacha 💖"
 ];
 
 function handleNo() {
-    const text = document.getElementById("savageText");
     const btn = document.getElementById("noBtn");
 
     if (noCount < 7) {
-        text.innerText = savageLines[noCount];
+        btn.innerText = savageLines[noCount];
         noCount++;
     } else {
         btn.innerText = "Yes 💖";
         btn.onclick = openConfession;
-        text.innerText = "Ab option bhi samajh gaya 😏❤️";
     }
 }
 
+/* YES click */
 function openConfession() {
     document.getElementById("proposalCard").classList.add("hidden");
-    const confession = document.getElementById("confessionCard");
-    confession.classList.remove("hidden");
-    confession.classList.add("fade-in");
-    launchConfetti();
+    document.getElementById("confessionCard").classList.remove("hidden");
+    document.getElementById("song").play();
+    startConfetti();
+    startHearts();
 }
 
 /* Confetti */
-function launchConfetti() {
-    for (let i = 0; i < 30; i++) {
+function startConfetti() {
+    for (let i = 0; i < 40; i++) {
         const conf = document.createElement("div");
-        conf.className = "confetti";
-        conf.innerHTML = ["🎉","💖","✨","💍"][Math.floor(Math.random()*4)];
+        conf.innerHTML = "🎉";
+        conf.style.position = "fixed";
         conf.style.left = Math.random() * 100 + "vw";
-        conf.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        conf.style.top = "-10px";
+        conf.style.fontSize = "20px";
+        conf.style.animation = "float 5s linear";
         document.body.appendChild(conf);
-        setTimeout(() => conf.remove(), 3000);
+        setTimeout(() => conf.remove(), 5000);
     }
 }
 
-/* Floating hearts */
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💗";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 7000);
+/* Hearts */
+function startHearts() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }, 600);
 }
-setInterval(createHeart, 450);
 </script>
 
 </body>
