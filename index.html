@@ -2,215 +2,285 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You ❤️</title>
+<title>Only For You 💖</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #ff6a88, #ff99ac);
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-    overflow-x: hidden;
+body{
+    margin:0;
+    height:100vh;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#ff6a88,#ff99ac);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    color:#fff;
 }
 
-.hidden { display: none; }
-
-h1 { font-size: 2.3rem; margin-top: 15px; }
-p { font-size: 1.1rem; line-height: 1.7; }
-
-.card-box {
-    background: rgba(255,255,255,0.18);
-    border-radius: 25px;
-    padding: 25px;
-    margin: 30px auto;
-    max-width: 340px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+/* CARD */
+.container{
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(10px);
+    padding:30px;
+    border-radius:25px;
+    text-align:center;
+    width:90%;
+    max-width:420px;
+    z-index:2;
 }
 
-.answer-btn {
-    background: #fff;
-    color: #ff4d6d;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 25px;
-    margin: 8px;
-    font-size: 1rem;
-    cursor: pointer;
+.hidden{display:none;}
+
+h1{font-size:26px;}
+p{font-size:16px;}
+
+.buttons{
+    margin-top:20px;
+    position:relative;
+    height:120px;
 }
 
-/* 🐻🐰 Cartoon bounce */
-.cartoon {
-    font-size: 3.2rem;
-    animation: bounce 2s infinite;
-}
-@keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+button{
+    padding:12px 26px;
+    border:none;
+    border-radius:30px;
+    font-size:16px;
+    cursor:pointer;
 }
 
-/* 😈 Shake */
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-6px); }
-    50% { transform: translateX(6px); }
-    75% { transform: translateX(-6px); }
-    100% { transform: translateX(0); }
-}
-.shake { animation: shake 0.4s; }
-
-/* 💍 Ring */
-.big-ring {
-    font-size: 7rem;
-    animation: pop 1.2s ease forwards;
-}
-@keyframes pop {
-    0% { transform: scale(0); opacity: 0; }
-    70% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(1); }
+#yesBtn{
+    background:#ff4d6d;
+    color:#fff;
 }
 
-/* 💗 Floating hearts */
-.heart {
-    position: fixed;
-    bottom: -20px;
-    font-size: 20px;
-    animation: float 6s linear infinite;
-    opacity: 0.7;
+#noBtn{
+    background:#fff;
+    color:#ff4d6d;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
 }
-@keyframes float {
-    to { transform: translateY(-100vh); opacity: 0; }
+
+/* SHAKE */
+@keyframes shake{
+    0%{transform:translateX(-50%)}
+    25%{transform:translateX(-56%)}
+    50%{transform:translateX(-44%)}
+    75%{transform:translateX(-56%)}
+    100%{transform:translateX(-50%)}
+}
+.shake{animation:shake 0.4s}
+
+/* YES SCREEN */
+.ring{font-size:90px;margin:10px 0}
+.typing{font-size:17px;line-height:1.6}
+
+/* HEARTS */
+.heart{
+    position:fixed;
+    bottom:-10px;
+    font-size:20px;
+    animation:floatUp 6s linear infinite;
+}
+@keyframes floatUp{
+    to{transform:translateY(-110vh);opacity:0}
+}
+
+/* CONFETTI */
+.confetti{
+    position:fixed;
+    width:8px;
+    height:14px;
+    top:-10px;
+    animation:fall 3s linear forwards;
+}
+@keyframes fall{
+    to{transform:translateY(110vh) rotate(360deg)}
+}
+
+/* SPARKLES */
+.sparkle{
+    position:fixed;
+    font-size:18px;
+    animation:spark 1.5s ease-out forwards;
+}
+@keyframes spark{
+    to{opacity:0;transform:scale(2)}
+}
+
+/* FIREWORKS */
+.firework{
+    position:fixed;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    animation:boom 1.5s ease-out forwards;
+}
+@keyframes boom{
+    to{
+        transform:translate(var(--x),var(--y));
+        opacity:0;
+    }
 }
 </style>
 </head>
 
-<body onclick="enableSound()">
+<body>
 
-<!-- 🌸 FIRST SCREEN -->
-<div id="mainContent">
-    <div class="cartoon">🐻💕🐰</div>
+<audio id="music" loop>
+  <source src="rhnuma_raone_srk.mp3" type="audio/mpeg">
+</audio>
 
-    <h1>Hey You ❤️</h1>
-    <p>
-        Thoda sa cute, thoda sa crazy,<br>
-        aur kaafi saara pyaar — bas tumhare liye 🥹
-    </p>
+<div class="container">
 
-    <div class="card-box" onclick="openCard(event)">
-        <div id="closedCard">💌 Tap to open this 💌</div>
+<!-- QUESTION -->
+<div id="question">
+    <div style="font-size:70px;">🐻💗🐼</div>
+    <h1>Will you be my Valentine? 💖</h1>
+    <p id="noText">Soch lo ache se 😌</p>
 
-        <div id="openCard" class="hidden">
-            <p style="font-size:1.4rem;font-weight:bold;">
-                Will you be my Valentine? ❤️
-            </p>
-            <button class="answer-btn" onclick="sayYes(event)">Yes 💖</button>
-            <button class="answer-btn" id="noBtn" onclick="handleNo()">No 🙃</button>
-        </div>
+    <div class="buttons">
+        <button id="yesBtn" onclick="sayYes()">YES 💕</button>
+        <button id="noBtn"
+            onclick="sayNo()"
+            onmouseover="moveNo()"
+            ontouchstart="moveNo()">NO 🙃</button>
     </div>
 </div>
 
-<!-- 💍 FINAL SCREEN -->
-<div id="finalScreen" class="hidden">
-    <div class="cartoon">🐻💍🐰</div>
-    <div class="big-ring">💍</div>
-    <div id="typingText" style="margin-top:20px;opacity:0.96;"></div>
+<!-- YES SCREEN -->
+<div id="yesScreen" class="hidden">
+    <div class="ring">💍</div>
+    <div style="font-size:80px;">🐻‍❄️💞🐼</div>
+    <div id="typing" class="typing"></div>
 </div>
 
-<!-- 🎵 MUSIC -->
-<audio id="bgMusic" autoplay loop muted>
-    <source src="https://raw.githubusercontent.com/ank0809/Rose-day/e8b44a007b0661bc1c584f677fe703e3a44e7676/tum-se-hi-from-jab-we-met_8h436GOY.mp3" type="audio/mpeg">
-</audio>
+</div>
 
 <script>
-/* 💗 Hearts */
-setInterval(()=>{
-    const h=document.createElement("div");
-    h.className="heart";
-    h.innerHTML="💗";
-    h.style.left=Math.random()*100+"vw";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),7000);
-},450);
-
-/* 🎵 Music */
-let soundEnabled=false;
-function enableSound(){
-    if(!soundEnabled){
-        bgMusic.muted=false;
-        bgMusic.play();
-        soundEnabled=true;
-    }
-}
-
-/* Open card */
-function openCard(e){
-    e.stopPropagation();
-    closedCard.classList.add("hidden");
-    openCardDiv.classList.remove("hidden");
-}
-const openCardDiv=document.getElementById("openCard");
-
-/* 😈 NO logic */
+const music=document.getElementById("music");
 let noCount=0;
-function handleNo(){
+
+const noLines=[
+"Are you sure? 😳",
+"Ek baar YES try karo na 🥺",
+"Itna bhaav mat khao 😌",
+"Dil thoda sa pighalne do 💗",
+"Itni baar NO bol diya… YES bhi banta hai 😇",
+"Main bura nahi hoon, promise 🫣",
+"YES bolne me zyada cute lagogi 😏",
+"Last chance… pakka 😬",
+"Bas bas 😂 sirf YES bacha"
+];
+
+function sayNo(){
+    music.play();
     noCount++;
     const btn=document.getElementById("noBtn");
-
     btn.classList.add("shake");
     setTimeout(()=>btn.classList.remove("shake"),400);
 
-    btn.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*200-100}px)`;
-
-    alert("Ek baar phir soch lo na 🥺");
+    if(noCount<=noLines.length){
+        document.getElementById("noText").innerText=noLines[noCount-1];
+    }
 
     if(noCount>=9){
-        btn.remove();
+        btn.style.display="none";
     }
 }
 
-/* 💍 YES logic */
-function sayYes(e){
-    e.stopPropagation();
-    document.getElementById("mainContent").remove();
-    document.getElementById("finalScreen").classList.remove("hidden");
-    startTyping();
+function moveNo(){
+    const btn=document.getElementById("noBtn");
+    btn.style.left=Math.random()*60+"%";
+    btn.style.top=Math.random()*60+"px";
 }
 
-/* ✨ Typing Effect (line by line) */
-const lines = [
-    "Hum mile bilkul randomly…",
-    "aur sach kahun toh mujhe kabhi laga hi nahi tha",
-    "ki main kisi ko itna chahne lagunga 🥹❤️",
-    "",
-    "Kehte hain na, kuch bhi accidentally nahi hota,",
-    "shayad humara milna bhi destiny ka hi plan tha ✨",
-    "",
-    "Tumse baat karte karte laga,",
-    "jaise tum wahi ho jiska intezaar",
-    "mera dil kabse kar raha tha 💕",
-    "",
-    "Agar pyaar ek kahaani hoti,",
-    "toh meri favourite line tum hoti 😌❤️"
+function sayYes(){
+    music.play();
+    document.getElementById("question").classList.add("hidden");
+    document.getElementById("yesScreen").classList.remove("hidden");
+    startTyping();
+    hearts();
+    confetti();
+    sparkles();
+    fireworks();
+}
+
+/* TYPING */
+const lines=[
+"Hum mile randomly…",
+"aur maine kabhi socha nahi tha,",
+"ki main tumhe itna chahne lagunga 💭",
+"",
+"Kehte hain kuch bhi accidentally nahi hota…",
+"shayad tumse milna bhi destiny ka hi plan tha ✨",
+"",
+"Tumse baat karke laga —",
+"tum wahi ho jiska main intezaar kar raha tha 🤍",
+"",
+"So… will you be mine? 💕"
 ];
-
-let lineIndex = 0;
-let charIndex = 0;
-
+let i=0,j=0;
 function startTyping(){
-    const container = document.getElementById("typingText");
-    if(lineIndex >= lines.length) return;
+    const el=document.getElementById("typing");
+    if(i<lines.length){
+        if(j<lines[i].length){
+            el.innerHTML+=lines[i][j++];
+            setTimeout(startTyping,45);
+        }else{
+            el.innerHTML+="<br>";
+            i++; j=0;
+            setTimeout(startTyping,350);
+        }
+    }
+}
 
-    if(charIndex < lines[lineIndex].length){
-        container.innerHTML += lines[lineIndex].charAt(charIndex);
-        charIndex++;
-        setTimeout(startTyping, 45);
-    } else {
-        container.innerHTML += "<br><br>";
-        lineIndex++;
-        charIndex = 0;
-        setTimeout(startTyping, 600);
+/* EFFECTS */
+function hearts(){
+    setInterval(()=>{
+        const h=document.createElement("div");
+        h.className="heart";
+        h.innerHTML="💖";
+        h.style.left=Math.random()*100+"%";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),6000);
+    },400);
+}
+
+function confetti(){
+    for(let i=0;i<70;i++){
+        const c=document.createElement("div");
+        c.className="confetti";
+        c.style.left=Math.random()*100+"%";
+        c.style.background=`hsl(${Math.random()*360},100%,70%)`;
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),4000);
+    }
+}
+
+function sparkles(){
+    for(let i=0;i<25;i++){
+        const s=document.createElement("div");
+        s.className="sparkle";
+        s.innerHTML="✨";
+        s.style.left=(40+Math.random()*20)+"%";
+        s.style.top=(40+Math.random()*20)+"%";
+        document.body.appendChild(s);
+        setTimeout(()=>s.remove(),1500);
+    }
+}
+
+function fireworks(){
+    for(let i=0;i<60;i++){
+        const f=document.createElement("div");
+        f.className="firework";
+        f.style.background=`hsl(${Math.random()*360},100%,60%)`;
+        f.style.left="50%";
+        f.style.top="50%";
+        f.style.setProperty("--x",(Math.random()*400-200)+"px");
+        f.style.setProperty("--y",(Math.random()*400-200)+"px");
+        document.body.appendChild(f);
+        setTimeout(()=>f.remove(),1500);
     }
 }
 </script>
