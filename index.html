@@ -2,263 +2,183 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You ❤️</title>
+<title>For Sweetie ❤️</title>
 
 <style>
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #ff6a88, #ff99ac);
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
     color: #fff;
     text-align: center;
-    padding: 20px;
-    overflow-x: hidden;
 }
 
-h1 { font-size: 2.3rem; margin-top: 20px; }
-
-.intro {
-    font-size: 1.05rem;
-    opacity: 0.95;
-    margin-top: 10px;
-    line-height: 1.6;
+/* ---------- Pages ---------- */
+.page {
+    display: none;
+    min-height: 100vh;
+    padding: 30px;
+}
+.page.active {
+    display: block;
 }
 
-/* Card */
-.card {
-    background: rgba(255,255,255,0.18);
-    border-radius: 25px;
-    padding: 25px;
-    margin: 35px auto;
-    max-width: 360px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-}
-
+/* ---------- Buttons ---------- */
 button {
-    background: #fff;
-    color: #ff4d6d;
+    padding: 12px 22px;
     border: none;
-    padding: 10px 22px;
     border-radius: 25px;
-    margin: 10px;
     font-size: 1rem;
     cursor: pointer;
-    transition: 0.3s;
+    margin: 10px;
 }
 
-button:hover {
-    transform: scale(1.05);
+.yes {
+    background: #ff4d6d;
+    color: #fff;
+}
+.no {
+    background: transparent;
+    color: #fff;
+    border: 2px solid #fff;
 }
 
-/* Hidden class */
-.hidden { display: none; }
-
-/* Fade */
-.fade-in {
-    animation: fade 1.6s ease;
-}
-@keyframes fade {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Floating emoji */
-.float {
-    position: fixed;
-    bottom: -10px;
-    font-size: 22px;
-    animation: floatUp 6s linear infinite;
-}
-@keyframes floatUp {
-    to { transform: translateY(-110vh); opacity: 0; }
-}
-
-/* Ring */
-.ring {
-    font-size: 4rem;
-    animation: pop 1s ease forwards;
-}
-@keyframes pop {
-    0% { transform: scale(0); opacity: 0; }
-    70% { transform: scale(1.2); }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-/* ✨ Glow */
+/* ---------- Glow ---------- */
 .glow {
-    animation: softGlow 2.5s ease-in-out infinite alternate;
+    animation: softGlow 2s ease-in-out infinite alternate;
 }
 @keyframes softGlow {
     from {
-        text-shadow: 0 0 6px rgba(255,255,255,0.4),
-                     0 0 12px rgba(255,182,193,0.4);
+        text-shadow: 0 0 5px #fff, 0 0 10px #ffb3c6;
     }
     to {
-        text-shadow: 0 0 14px rgba(255,255,255,0.9),
-                     0 0 28px rgba(255,105,180,0.9);
+        text-shadow: 0 0 12px #fff, 0 0 25px #ff4d6d;
     }
 }
 
-/* 🌸 Popup */
+/* ---------- Popup ---------- */
 .popup {
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.6);
-    display: flex;
-    align-items: center;
+    display: none;
     justify-content: center;
-    z-index: 999;
+    align-items: center;
+    z-index: 10;
 }
-
-.popup-card {
-    background: linear-gradient(135deg, #ff6a88, #ff99ac);
+.popup-content {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
     padding: 25px;
-    border-radius: 25px;
-    max-width: 330px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-    animation: pop 0.8s ease;
+    border-radius: 20px;
+    width: 85%;
+    max-width: 400px;
+}
+.popup button {
+    background: #ff4d6d;
+    color: #fff;
 }
 
-.close {
-    font-size: 1.2rem;
-    cursor: pointer;
-    float: right;
-}
-
-/* Popup fade-in/fade-out */
-.popup.fade-in {
-    animation: fadeIn 0.6s ease forwards;
-}
-
-.popup.fade-out {
-    animation: fadeOut 0.5s ease forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-
-footer {
-    margin-top: 40px;
-    font-size: 0.95rem;
+/* ---------- Typewriter ---------- */
+.typewriter {
+    text-align: center;
+    min-height: 150px;
 }
 </style>
 </head>
 
-<body onclick="enableSound()">
+<body>
 
-<h1>Hey You ❤️</h1>
+<!-- 🎵 SONG (RESTORED) -->
+<audio autoplay loop>
+    <source src="rhnuma_raone_srk.mp3" type="audio/mpeg">
+</audio>
 
-<div class="intro">
-    I made this little page for you 💕<br>
-    kyunki kuch feelings<br>
-    sirf messages mein fit nahi hoti…
+<!-- ================= PAGE 1 ================= -->
+<div class="page active" id="page1">
+    <h2>Will you be mine forever? ❤️</h2>
+    <p>Ek simple sa sawaal hai…</p>
+
+    <button class="yes" onclick="goToPage2()">YES 💖</button>
+    <button class="no">No 😤 (try again)</button>
 </div>
 
-<!-- Proposal -->
-<div class="card" id="proposalCard">
-    <h2>Will you be my Valentine? 💖</h2>
-    <button onclick="openConfession()">Yes 💕</button>
-    <button id="noBtn" onclick="handleNo()">No 🙃</button>
+<!-- ================= PAGE 2 ================= -->
+<div class="page" id="page2">
+    <h2>Confession 💌</h2>
+
+    <!-- 🔒 ORIGINAL TEXT (UNCHANGED) -->
+    <p>
+    We met accidentally…<br>
+    aur phir bas baatein start ho gayi 😊<br>
+    bina plan ke, bina expectation ke.
+    </p>
+
+    <p>
+    Waqt guzarta gaya,<br>
+    aur mujhe pata hi nahi chala<br>
+    kab tum meri aadat ban gaye 💫
+    </p>
+
+    <p>
+    Tum bilkul meri soch jaise ho ✨<br>
+    tumhara behaviour,<br>
+    tumhari simplicity —<br>
+    sab kuch bilkul mere type ka 🫶
+    </p>
+
+    <p>
+    Accidently mile hum,<br>
+    par lagta hai destiny ne<br>
+    mujhe jaan-boojh kar<br>
+    tumse milwaya tha 😌❤️
+    </p>
+
+    <br>
+    <button onclick="openPopup()">Ek Dil Ki Baat 💕</button>
 </div>
 
-<!-- Confession -->
-<div class="card hidden fade-in" id="confessionCard">
-    <div class="ring">💍</div>
-
-    <p>We met accidentally…<br>aur phir baatein start ho gayi 😊</p>
-
-    <p>Waqt guzarta gaya,<br>aur tum meri aadat ban gaye 💫</p>
-
-    <p>Accidently mile hum,<br>par destiny ne milwaya tha 😌❤️</p>
-
-    <!-- 💌 Popup Button -->
-    <button onclick="openPopup2()">Ek last baat… 💌</button>
-
-    <h3>Thank you for choosing me 🐻💖</h3>
-</div>
-
-<!-- 💌 SECOND POPUP -->
-<div class="popup hidden" id="lovePopup2" onclick="closePopupOutside(event)">
-    <div class="popup-card">
-        <div class="close" onclick="closePopup2()">❌</div>
-
-        <p>
-        From knowing your name,<br>
-        to knowing everything about you… 🌙
-        </p>
-
-        <p>
-        It has been the most beautiful journey of my life ✨
-        </p>
-
-        <p class="glow" style="font-weight:600; font-size:1.1rem;">
-        Hey… please stay with me forever 💞
-        </p>
+<!-- ================= POPUP ================= -->
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <div class="typewriter" id="typeText"></div>
+        <br>
+        <button onclick="closePopup()">Close 💖</button>
     </div>
 </div>
 
-<footer>
-    Always yours,<br>
-    <b>Your Farzi Engineer 😌</b>
-</footer>
-
-<audio id="bgSong" loop muted>
-    <source src="https://raw.githubusercontent.com/ank0809/Rose-day/e8b44a007b0661bc1c584f677fe703e3a44e7676/tum-se-hi-from-jab-we-met_8h436GOY.mp3">
-</audio>
-
 <script>
-let soundEnabled=false;
-function enableSound(){
- if(!soundEnabled){
-  bgSong.muted=false; bgSong.play(); soundEnabled=true;
- }
+function goToPage2() {
+    document.getElementById("page1").classList.remove("active");
+    document.getElementById("page2").classList.add("active");
 }
 
-let noCount=0;
-const savageLines=[
-"Dil dukha diya 😭","Still no? 🥺","Thoda pyaar dedo 💖",
-"Itna bhi kya gussa? 😔","Ek smile to de do 😊",
-"Thoda sa YES bol do na 🫣","Ab bas YES hi bacha 💞"
-];
+/* ---------- Popup ---------- */
+const popupText = `
+From knowing your name,<br>
+to knowing everything about you… 🌙<br><br>
+It has been the most beautiful journey of my life ✨<br><br>
+<span class="glow">Hey… please stay with me forever 💞</span>
+`;
 
-function handleNo(){
- const btn=noBtn;
- if(noCount<savageLines.length) btn.innerText=savageLines[noCount++];
- else { btn.innerText="Yes 💖"; btn.onclick=openConfession; }
+let index = 0;
+function openPopup() {
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("typeText").innerHTML = "";
+    index = 0;
+    typeEffect();
 }
 
-function openConfession(){
- proposalCard.classList.add("hidden");
- confessionCard.classList.remove("hidden");
-}
-
-// SECOND POPUP FUNCTIONS
-function openPopup2(){
-    const popup = document.getElementById("lovePopup2");
-    popup.classList.remove("hidden", "fade-out");
-    popup.classList.add("fade-in");
-}
-
-function closePopup2(){
-    const popup = document.getElementById("lovePopup2");
-    popup.classList.remove("fade-in");
-    popup.classList.add("fade-out");
-    
-    setTimeout(() => popup.classList.add("hidden"), 500);
-}
-
-function closePopupOutside(e){
-    if(e.target.id === "lovePopup2"){
-        closePopup2();
+function typeEffect() {
+    if (index < popupText.length) {
+        document.getElementById("typeText").innerHTML += popupText.charAt(index);
+        index++;
+        setTimeout(typeEffect, 40);
     }
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
 }
 </script>
 
