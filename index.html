@@ -40,11 +40,11 @@ button {
 .hidden { display: none; }
 
 .fade-in {
-    animation: fade 1.6s ease-in-out;
+    animation: fade 1.8s ease;
 }
 
 @keyframes fade {
-    from { opacity: 0; transform: translateY(15px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -60,6 +60,18 @@ button {
     0% { transform: translateY(0); opacity: 1; }
     100% { transform: translateY(-100vh); opacity: 0; }
 }
+
+/* Ring */
+.ring {
+    font-size: 4rem;
+    animation: pop 1s ease forwards;
+}
+
+@keyframes pop {
+    0% { transform: scale(0); opacity: 0; }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
 </style>
 </head>
 
@@ -67,16 +79,21 @@ button {
 
 <h1>Hey You ❤️</h1>
 
+<!-- Proposal Card -->
 <div class="card" id="proposalCard">
     <h2>Will you be my Valentine? 💕</h2>
     <button onclick="openConfession()">Yes 💖</button>
     <button id="noBtn" onclick="handleNo()">No 🙃</button>
 </div>
 
+<!-- Confession Card -->
 <div class="card hidden fade-in" id="confessionCard">
+
+    <div class="ring">💍</div>
+
     <p>
     We met accidentally…<br>
-    aur phir bas baatein shuru ho gayi 😊<br>
+    aur phir bas baatein start ho gayi 😊<br>
     bina plan ke, bina expectation ke.
     </p>
 
@@ -90,14 +107,15 @@ button {
     <p>
     Sach bataun to,<br>
     main ladkiyon se thoda door bhaagta tha 🙃<br>
-    par tumse milke laga<br>
-    sab log same nahi hote ❤️
+    par tumse milne ke baad laga,<br>
+    shayad sab log same nahi hote ❤️
     </p>
 
     <p>
-    Tum meri soch jaise ho ✨<br>
+    Tum is generation se thodi alag ho ✨<br>
     tumhara behaviour,<br>
-    tumhari simplicity,<br>
+    tumhari thinking,<br>
+    tumhari simplicity —<br>
     sab kuch bilkul mere type ka 🫶
     </p>
 
@@ -111,21 +129,21 @@ button {
     <h3>Thank you for choosing me 🐻💖</h3>
 </div>
 
-<!-- Song -->
-<audio id="song" loop>
-    <source src="rhnuma_raone_srk.mp3" type="audio/mpeg">
+<!-- 🎵 Background Song -->
+<audio id="bgSong" loop>
+    <source src="https://raw.githubusercontent.com/ank0809/Valentine/main/rhnuma_raone_srk.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 /* NO button logic */
 let noCount = 0;
 const savageLines = [
-    "Soch lo… 😌",
+    "Soch lo 😌",
     "Itna bhaav? 🙃",
     "Dil maan jao 💓",
     "Sure ho? 👀",
-    "Cute NO 😄",
-    "Bas ek aur 😏",
+    "Cute sa NO 😄",
+    "Bas ek aur try 😏",
     "Ab YES hi bacha 💖"
 ];
 
@@ -145,36 +163,40 @@ function handleNo() {
 function openConfession() {
     document.getElementById("proposalCard").classList.add("hidden");
     document.getElementById("confessionCard").classList.remove("hidden");
-    document.getElementById("song").play();
+
+    // play song
+    const song = document.getElementById("bgSong");
+    song.play();
+
     startConfetti();
     startHearts();
 }
 
 /* Confetti */
 function startConfetti() {
-    for (let i = 0; i < 40; i++) {
-        const conf = document.createElement("div");
-        conf.innerHTML = "🎉";
-        conf.style.position = "fixed";
-        conf.style.left = Math.random() * 100 + "vw";
-        conf.style.top = "-10px";
-        conf.style.fontSize = "20px";
-        conf.style.animation = "float 5s linear";
-        document.body.appendChild(conf);
-        setTimeout(() => conf.remove(), 5000);
+    for (let i = 0; i < 35; i++) {
+        const c = document.createElement("div");
+        c.innerHTML = ["🎉","✨","💖","💍"][Math.floor(Math.random()*4)];
+        c.style.position = "fixed";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.top = "-10px";
+        c.style.fontSize = "18px";
+        c.style.animation = "float 5s linear";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 5000);
     }
 }
 
-/* Hearts */
+/* Floating hearts */
 function startHearts() {
     setInterval(() => {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
-    }, 600);
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.innerHTML = "❤️";
+        h.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 6000);
+    }, 500);
 }
 </script>
 
