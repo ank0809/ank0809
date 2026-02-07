@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You ❤️</title>
-
 <style>
 body {
     margin: 0;
@@ -17,15 +16,8 @@ body {
 }
 
 h1 { font-size: 2.3rem; margin-top: 20px; }
+.intro { font-size: 1.05rem; opacity: 0.95; margin-top: 10px; line-height: 1.6; }
 
-.intro {
-    font-size: 1.05rem;
-    opacity: 0.95;
-    margin-top: 10px;
-    line-height: 1.6;
-}
-
-/* Card */
 .card {
     background: rgba(255,255,255,0.18);
     border-radius: 25px;
@@ -47,63 +39,20 @@ button {
     transition: 0.3s;
 }
 
-button:hover {
-    transform: scale(1.05);
-}
-
-/* Hidden class */
+button:hover { transform: scale(1.05); }
 .hidden { display: none; }
 
-/* Fade */
-.fade-in {
-    animation: fade 1.6s ease;
-}
-@keyframes fade {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+.fade-in { animation: fade 1.6s ease; }
+@keyframes fade { from { opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
 
-/* Floating emoji */
-.float {
-    position: fixed;
-    bottom: -10px;
-    font-size: 22px;
-    animation: floatUp 6s linear infinite;
-}
-@keyframes floatUp {
-    to { transform: translateY(-110vh); opacity: 0; }
-}
+.ring { font-size: 4rem; animation: pop 1s ease forwards; }
+@keyframes pop { 0%{transform:scale(0); opacity:0;} 70%{transform:scale(1.2);} 100%{transform:scale(1); opacity:1;} }
 
-/* Ring */
-.ring {
-    font-size: 4rem;
-    animation: pop 1s ease forwards;
-}
-@keyframes pop {
-    0% { transform: scale(0); opacity: 0; }
-    70% { transform: scale(1.2); }
-    100% { transform: scale(1); opacity: 1; }
-}
+.glow { animation: softGlow 2.5s ease-in-out infinite alternate; }
+@keyframes softGlow { from{ text-shadow:0 0 6px rgba(255,255,255,0.4),0 0 12px rgba(255,182,193,0.4);} to{ text-shadow:0 0 14px rgba(255,255,255,0.9),0 0 28px rgba(255,105,180,0.9);}}
 
-/* ✨ Glow */
-.glow {
-    animation: softGlow 2.5s ease-in-out infinite alternate;
-}
-@keyframes softGlow {
-    from {
-        text-shadow: 0 0 6px rgba(255,255,255,0.4),
-                     0 0 12px rgba(255,182,193,0.4);
-    }
-    to {
-        text-shadow: 0 0 14px rgba(255,255,255,0.9),
-                     0 0 28px rgba(255,105,180,0.9);
-    }
-}
-
-/* 🌸 Popup */
 .popup {
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background: rgba(0,0,0,0.6);
     display: flex;
     align-items: center;
@@ -117,117 +66,63 @@ button:hover {
     border-radius: 25px;
     max-width: 330px;
     box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-    animation: pop 0.8s ease;
     position: relative;
-    overflow: hidden; /* for floating hearts */
+    overflow: hidden;
 }
 
-.close {
-    font-size: 1.2rem;
-    cursor: pointer;
-    float: right;
-}
+.close { font-size:1.2rem; cursor:pointer; float:right; }
 
-/* Popup fade-in/fade-out */
-.popup.fade-in {
-    animation: fadeIn 0.6s ease forwards;
-}
+.popup.fade-in { animation: fadeIn 0.6s ease forwards; }
+.popup.fade-out { animation: fadeOut 0.5s ease forwards; }
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+@keyframes fadeOut { from {opacity:1;} to {opacity:0;} }
 
-.popup.fade-out {
-    animation: fadeOut 0.5s ease forwards;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-}
-
-/* Floating hearts inside popup */
 .popup .heart {
     position: absolute;
     font-size: 20px;
     color: #ff6aa1;
     animation: floatHeart 4s linear infinite;
-    opacity: 0.8;
+    opacity:0.8;
 }
+@keyframes floatHeart { 0%{transform:translateY(0) scale(1);opacity:0.8;} 50%{opacity:1;} 100%{transform:translateY(-120px) scale(1.2);opacity:0;} }
 
-@keyframes floatHeart {
-    0% { transform: translateY(0) scale(1); opacity: 0.8; }
-    50% { opacity: 1; }
-    100% { transform: translateY(-120px) scale(1.2); opacity: 0; }
-}
-
-footer {
-    margin-top: 40px;
-    font-size: 0.95rem;
-}
+footer { margin-top:40px; font-size:0.95rem; }
 </style>
 </head>
-
 <body onclick="enableSound()">
 
 <h1>Hey You ❤️</h1>
-
 <div class="intro">
     I made this little page for you 💕<br>
     kyunki kuch feelings<br>
     sirf messages mein fit nahi hoti…
 </div>
 
-<!-- Proposal -->
+<!-- Proposal Card -->
 <div class="card" id="proposalCard">
     <h2>Will you be my Valentine? 💖</h2>
-    <button onclick="openConfession()">Yes 💕</button>
-    <button id="noBtn" onclick="handleNo()">No 🙃</button>
+    <button id="yesBtn">Yes 💕</button>
+    <button id="noBtn">No 🙃</button>
 </div>
 
-<!-- Confession -->
+<!-- Confession Card -->
 <div class="card hidden fade-in" id="confessionCard">
     <div class="ring">💍</div>
-
     <p>We met accidentally…<br>aur phir bas baatein start ho gayi 😊<br>bina plan ke, bina expectation ke.</p>
-
     <p>Waqt guzarta gaya,<br>aur mujhe pata hi nahi chala<br>kab tum meri aadat ban gaye 💫</p>
-
     <p>Tum bilkul meri soch jaise ho ✨<br>tumhara behaviour,<br>tumhari simplicity —<br>sab kuch bilkul mere type ka 🫶</p>
-
     <p>Accidently mile hum,<br>par lagta hai destiny ne<br>mujhe jaan-boojh kar<br>tumse milwaya tha 😌❤️</p>
-
-    <!-- 💌 Popup Button -->
-    <button onclick="openPopup2()">Ek last baat… 💌</button>
-
+    <button id="popupBtn">Ek last baat… 💌</button>
     <h3>Thank you for choosing me 🐻💖</h3>
 </div>
 
-<!-- 💌 SECOND POPUP -->
+<!-- Second Popup -->
 <div class="popup hidden" id="lovePopup2" onclick="closePopupOutside(event)">
     <div class="popup-card">
         <div class="close" onclick="closePopup2()">❌</div>
-
-        <p>
-        From knowing your name,<br>
-        to knowing everything about you… 🌙
-        </p>
-
-        <p>
-        It has been the most beautiful journey of my life ✨
-        </p>
-
-        <p class="glow" style="font-weight:600; font-size:1.1rem;">
-        Hey… please stay with me forever 💞
-        </p>
-
-        <!-- Floating hearts -->
-        <span class="heart" style="left: 10%;">❤️</span>
-        <span class="heart" style="left: 30%; animation-delay: 0.5s;">💖</span>
-        <span class="heart" style="left: 50%; animation-delay: 1s;">💞</span>
-        <span class="heart" style="left: 70%; animation-delay: 1.5s;">❤️</span>
-        <span class="heart" style="left: 90%; animation-delay: 2s;">💗</span>
+        <p>From knowing your name to knowing everything about you.</p>
+        <p>It has been the most beautiful journey of my life.</p>
+        <p class="glow" style="font-weight:600; font-size:1.1rem;">Hey, please stay with me forever 💞</p>
     </div>
 </div>
 
@@ -241,6 +136,7 @@ footer {
 </audio>
 
 <script>
+// Background music
 let soundEnabled=false;
 function enableSound(){
  if(!soundEnabled){
@@ -248,6 +144,7 @@ function enableSound(){
  }
 }
 
+// Yes/No button logic
 let noCount=0;
 const savageLines=[
 "Dil dukha diya 😭","Still no? 🥺","Thoda pyaar dedo 💖",
@@ -255,35 +152,51 @@ const savageLines=[
 "Thoda sa YES bol do na 🫣","Ab bas YES hi bacha 💞"
 ];
 
-function handleNo(){
- const btn=noBtn;
- if(noCount<savageLines.length) btn.innerText=savageLines[noCount++];
- else { btn.innerText="Yes 💖"; btn.onclick=openConfession; }
-}
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const proposalCard = document.getElementById("proposalCard");
+const confessionCard = document.getElementById("confessionCard");
+const popupBtn = document.getElementById("popupBtn");
 
-function openConfession(){
- proposalCard.classList.add("hidden");
- confessionCard.classList.remove("hidden");
-}
+yesBtn.onclick = function(){
+    proposalCard.classList.add("hidden");
+    confessionCard.classList.remove("hidden");
+};
 
-// SECOND POPUP FUNCTIONS
-function openPopup2(){
-    const popup = document.getElementById("lovePopup2");
-    popup.classList.remove("hidden", "fade-out");
+noBtn.onclick = function(){
+    if(noCount < savageLines.length) { noBtn.innerText = savageLines[noCount++]; }
+    else { yesBtn.click(); } // force yes after repeated no
+};
+
+// Popup logic
+const popup = document.getElementById("lovePopup2");
+popupBtn.onclick = function(){
+    popup.classList.remove("hidden","fade-out");
     popup.classList.add("fade-in");
-}
-
+    createHearts();
+};
 function closePopup2(){
-    const popup = document.getElementById("lovePopup2");
     popup.classList.remove("fade-in");
     popup.classList.add("fade-out");
-    
-    setTimeout(() => popup.classList.add("hidden"), 500);
+    setTimeout(()=>popup.classList.add("hidden"),500);
+}
+function closePopupOutside(e){
+    if(e.target.id === "lovePopup2") closePopup2();
 }
 
-function closePopupOutside(e){
-    if(e.target.id === "lovePopup2"){
-        closePopup2();
+// Floating hearts dynamically
+function createHearts(){
+    const popupCard = popup.querySelector(".popup-card");
+    // remove old hearts
+    popupCard.querySelectorAll(".heart").forEach(h => h.remove());
+    for(let i=0;i<10;i++){
+        const heart = document.createElement("span");
+        heart.className = "heart";
+        heart.innerText = ["❤️","💖","💞","💗"][Math.floor(Math.random()*4)];
+        heart.style.left = Math.random()*90 + "%";
+        heart.style.fontSize = (15 + Math.random()*10) + "px";
+        heart.style.animationDelay = (Math.random()*2) + "s";
+        popupCard.appendChild(heart);
     }
 }
 </script>
